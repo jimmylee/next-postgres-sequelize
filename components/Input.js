@@ -1,6 +1,26 @@
-import React from 'react';
+import * as React from 'react';
 import PropTypes from 'prop-types';
 import Label from '../components/Label';
+import { css } from 'react-emotion';
+
+const baseStyles = css`
+  position: relative;
+`;
+
+const inputStyles = css`
+  width: 100%;
+  outline: 0;
+  border: 0;
+  background: #666;
+  color: #ffffff;
+  padding: 48px 8px 16px 8px;
+  margin-bottom: 8px;
+  font-size: 16px;
+
+  :focus {
+    background: blue;
+  }
+`;
 
 export default class Input extends React.Component {
   static propTypes = {
@@ -37,35 +57,12 @@ export default class Input extends React.Component {
 
   render() {
     return (
-      <div className="container">
-        <style jsx>{`
-          .container {
-            width: 100%;
-            position: relative;
-          }
-
-          .input {
-            font-size: 16px;
-            font-weight: 600;
-            padding: 44px 16px 16px 16px;
-            width: 100%;
-            box-sizing: border-box;
-            z-index: 1;
-            color: #000000;
-            border: 2px solid #000000;
-            box-shadow: 4px 4px 0 #000000;
-          }
-
-          .input:focus {
-            border: 2px solid blue;
-            box-shadow: 4px 4px 0 blue;
-          }
-        `}</style>
-        <Label>{this.props.label}</Label>
+      <div className={baseStyles}>
+        {this.props.label ? <Label>{this.props.label}</Label> : undefined}
         <input
           ref="input"
           autoComplete="off"
-          className="input"
+          className={inputStyles}
           onChange={this.props.onChange}
           onKeyUp={this._handleKeyUp}
           placeholder={this.props.placeholder}

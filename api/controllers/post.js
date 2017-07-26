@@ -1,3 +1,4 @@
+import queries from './queries';
 import { Post, User, Comment } from '../models';
 
 module.exports = {
@@ -17,24 +18,9 @@ module.exports = {
 
   async list(req, res) {
     try {
-      const posts = await Post.findAll({
-        include: [
-          {
-            model: Comment,
-            as: 'comments',
-            include: [
-              {
-                model: User,
-              },
-            ],
-          },
-          {
-            model: User,
-          },
-        ],
-        order: [['createdAt', 'DESC']],
-      });
-
+      const posts = await Post.findAll(
+        queries.posts.list({ User, Post, Comment })
+      );
       return res.status(200).send(posts);
     } catch (err) {
       return res.status(500).send(err);
@@ -43,22 +29,10 @@ module.exports = {
 
   async get(req, res) {
     try {
-      const post = await Post.findById(req.params.postId, {
-        include: [
-          {
-            model: Comment,
-            as: 'comments',
-            include: [
-              {
-                model: User,
-              },
-            ],
-          },
-          {
-            model: User,
-          },
-        ],
-      });
+      const post = await Post.findById(
+        req.params.postId,
+        queries.posts.get({ User, Post, Comment })
+      );
 
       if (!post) {
         return res.status(404).send({

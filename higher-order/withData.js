@@ -1,23 +1,17 @@
-import React, { Component } from 'react';
+import * as React from 'react';
+
 import { Provider, connect } from 'react-redux';
 import { initStore } from '../common/store';
-import * as HTTP from '../common/http';
 
-const skipMerge = ['initialState', 'initialProps', 'isServer', 'store'];
 const storeKey = '__NEXT_REDUX_STORE__';
 
 const getInitialStateData = async ctx => {
-  const usersRequest = await HTTP.getAllUsers();
-  const users = await usersRequest.json();
-
-  const postsRequest = await HTTP.getAllPosts();
-  const posts = await postsRequest.json();
-
-  const commentsRequest = await HTTP.getAllComments();
-  const comments = await commentsRequest.json();
+  const users = ctx.query.users;
+  const posts = ctx.query.posts;
+  const comments = ctx.query.comments;
 
   let post;
-  if (ctx.query) {
+  if (ctx.query && ctx.query.id && posts) {
     post = posts.find(p => {
       return `${p.id}` === ctx.query.id;
     });
@@ -25,9 +19,9 @@ const getInitialStateData = async ctx => {
 
   return {
     post,
-    users,
-    posts,
-    comments,
+    users: users ? users : [],
+    posts: posts ? posts : [],
+    comments: comments ? comments : [],
     isAuthenticated: ctx.req.isAuthenticated(),
     viewer: ctx.req.user,
   };
@@ -51,15 +45,10 @@ const initializeReduxStore = (ctx, initialState) => {
   return window[storeKey];
 };
 
-const composeComponentWithData = (
-  options,
-  mapStateToProps
-) => ComposedComponent => {
-  const connectedComponent = connect.apply(null, [mapStateToProps])(
-    ComposedComponent
-  );
+const composeComponentWithData = (options, mapStateToProps) => ComposedComponent => {
+  const connectedComponent = connect.apply(null, [mapStateToProps])(ComposedComponent);
 
-  return class WithDataHigherOrder extends Component {
+  return class WithDataHigherOrder extends React.Component {
     static async getInitialProps(ctx) {
       let initialState = { ...options.state };
 
@@ -82,25 +71,11 @@ const composeComponentWithData = (
       const { initialState, initialProps, store } = this.props;
 
       const hasStore = store && store.dispatch && store.getState;
-      const providerStore = hasStore
-        ? this.props.store
-        : initializeReduxStore({}, initialState);
-
-      const mergedProps = {};
-
-      Object.keys(this.props).forEach(p => {
-        if (!~skipMerge.indexOf(p)) {
-          mergedProps[p] = this.props[p];
-        }
-      });
-
-      Object.keys(initialProps).forEach(p => {
-        mergedProps[p] = initialProps[p];
-      });
+      const providerStore = hasStore ? this.props.store : initializeReduxStore({}, initialState);
 
       return (
         <Provider store={providerStore}>
-          {React.createElement(connectedComponent, mergedProps)}
+          {React.createElement(connectedComponent, initialProps)}
         </Provider>
       );
     }

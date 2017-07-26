@@ -1,14 +1,15 @@
-import React from 'react';
+import * as React from 'react';
+
 import Document from '../components/Document';
 import ColumnLayout from '../components/ColumnLayout';
 import UserList from '../components/UserList';
-import PublicNav from '../components/PublicNav';
-import Nav from '../components/Nav';
+import NavPublic from '../components/NavPublic';
+import NavAuthenticated from '../components/NavAuthenticated';
 import withData from '../higher-order/withData';
 
 class Users extends React.Component {
   render() {
-    let navigation = !this.props.isAuthenticated ? <PublicNav /> : <Nav />;
+    let navigation = !this.props.isAuthenticated ? <NavPublic /> : <NavAuthenticated />;
     return (
       <Document>
         {navigation}

@@ -1,7 +1,12 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import * as React from 'react';
 import * as Strings from '../common/strings';
 import * as Actions from '../common/actions';
+
+import Button from '../components/Button';
+import BorderedItem from '../components/BorderedItem';
+import BoxHeaderLayout from '../components/BoxHeaderLayout';
+
+import { connect } from 'react-redux';
 
 class UserPreview extends React.Component {
   _handleDelete = () => {
@@ -9,61 +14,24 @@ class UserPreview extends React.Component {
   };
 
   render() {
-    const isViewer =
-      this.props.viewer && this.props.id === this.props.viewer.id;
+    const isViewer = this.props.viewer && this.props.user.id === this.props.viewer.id;
 
     return (
-      <div className="container">
-        <style jsx>{`
-          .container {
-            box-sizing: border-box;
-            margin: 0 0 16px 0;
-            padding: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            font-size: 12px;
-            padding: 16px;
-            border: 1px solid #ECECEC;
-          }
-
-          .item {
-            margin-right: 16px;
-          }
-
-          .item--bold {
-            font-weight: 600;
-          }
-
-          .action {
-            text-decoration: underline;
-            cursor: pointer;
-          }
-
-          .left {
-            min-width: 25%;
-            width: 100%;
-          }
-
-          .right {
-            flex-shrink: 0;
-          }
-        `}</style>
-        <div className="left">
-          <span className="item item--bold">
-            {this.props.username}
-          </span>
-          <span className="item">
-            Joined on {Strings.toDate(this.props.createdAt)}
-          </span>
-        </div>
-        {isViewer
-          ? <div className="right">
-              <span className="action" onClick={this._handleDelete}>
-                Delete your account
-              </span>
+      <div style={this.props.style}>
+        <BoxHeaderLayout>
+          <strong>{this.props.user.username}</strong>
+        </BoxHeaderLayout>
+        <BorderedItem>
+          Joined on {Strings.toDate(this.props.user.createdAt)} <br />
+          <br />
+          {isViewer ? (
+            <div>
+              <Button onClick={this._handleDelete}>Delete your account</Button>
             </div>
-          : undefined}
+          ) : (
+            undefined
+          )}
+        </BorderedItem>
       </div>
     );
   }

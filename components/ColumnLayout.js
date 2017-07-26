@@ -1,26 +1,8 @@
-import React from 'react';
+import styled from 'react-emotion';
 
-export default class ColumnLayout extends React.Component {
-  render() {
-    return (
-      <div className="column-layout">
-        <style jsx>{`
-          .column-layout {
-            width: 100%;
-            max-width: 588px;
-            padding: 0 24px 0 24px;
-            box-sizing: border-box;
-            margin: 64px auto 0 auto;
-          }
-
-          .bottom {
-            height: 128px;
-            width: 100%;
-          }
-        `}</style>
-        {this.props.children}
-        <div className="bottom" />
-      </div>
-    );
-  }
-}
+export default styled('div')`
+  max-width: 672px;
+  width: 100%;
+  margin: 0 auto 0 auto;
+  padding: 48px 16px 228px 16px;
+`;

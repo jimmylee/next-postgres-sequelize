@@ -3,18 +3,21 @@ import next from 'next';
 import http from 'http';
 import cors from 'cors';
 import morgan from 'morgan';
+import url from 'url';
 import compression from 'compression';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import passport from 'passport';
-import nextRoutes from 'next-routes';
 import setupAuth from './api/auth';
+import setupApi from './api';
 
-const routes = nextRoutes();
+import queries from './api/controllers/queries';
+import { User, Comment, Post } from './api/models';
+
 const dev = process.env.NODE_ENV !== 'production';
 const port = parseInt(process.env.PORT, 10) || 8000;
-const app = next({ dev });
-const customHandler = routes.getRequestHandler(app);
+const app = next({ dev, quiet: false });
+const nextRequestHandler = app.getRequestHandler();
 
 app.prepare().then(() => {
   const server = express();
@@ -23,6 +26,7 @@ app.prepare().then(() => {
     server.use(compression());
   }
 
+  server.use('/static', express.static(__dirname + '/static'));
   server.use(cookieParser());
   server.use(morgan('dev'));
   server.use(cors({ credentials: true, origin: true }));
@@ -34,15 +38,24 @@ app.prepare().then(() => {
   );
 
   setupAuth(server, passport);
-  require('./api')(server);
+  setupApi(server);
 
-  server.get('/post/:id', (req, res) => {
-    const params = { id: req.params.id };
+  server.get('/post/:id', async (req, res) => {
+    const users = await User.findAll(queries.users.list({ req, User, Post, Comment }));
+    const posts = await Post.findAll(queries.posts.list({ User, Post, Comment }));
+    const comments = await Comment.findAll(queries.comments.list({ User, Post, Comment }));
+    const params = { id: req.params.id, users, comments, posts };
+
     return app.render(req, res, '/post', params);
   });
 
-  server.get('*', (req, res) => {
-    return customHandler(req, res);
+  server.get('*', async (req, res) => {
+    const users = await User.findAll(queries.users.list({ req, User, Post, Comment }));
+    const posts = await Post.findAll(queries.posts.list({ User, Post, Comment }));
+    const comments = await Comment.findAll(queries.comments.list({ User, Post, Comment }));
+    const params = { users, comments, posts };
+
+    return app.render(req, res, req.url, params);
   });
 
   server.listen(port, err => {

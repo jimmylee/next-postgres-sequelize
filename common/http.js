@@ -5,11 +5,6 @@ const requestHeaders = {
   'Content-Type': 'application/json',
 };
 
-const ENV = process.env.NODE_ENV || 'development';
-const SERVER_PATH = ENV === 'development'
-  ? 'http://localhost:8000'
-  : 'https://guarded-coast-67601.herokuapp.com';
-
 export const getAllComments = () => {
   const options = {
     method: 'GET',
@@ -17,7 +12,7 @@ export const getAllComments = () => {
     credentials: 'include',
   };
 
-  return fetch(`${SERVER_PATH}/api/comments`, options);
+  return fetch(`/api/comments`, options);
 };
 
 export const saveComment = ({ postId, content }) => {
@@ -28,7 +23,18 @@ export const saveComment = ({ postId, content }) => {
     body: JSON.stringify({ postId, content }),
   };
 
-  return fetch(`${SERVER_PATH}/api/comments`, options);
+  return fetch(`/api/comments`, options);
+};
+
+export const saveReply = ({ postId, commentId, content }) => {
+  const options = {
+    method: 'POST',
+    headers: requestHeaders,
+    credentials: 'include',
+    body: JSON.stringify({ postId, commentId, content }),
+  };
+
+  return fetch(`/api/comments`, options);
 };
 
 export const updateComment = ({ postId, commentId, content }) => {
@@ -39,10 +45,7 @@ export const updateComment = ({ postId, commentId, content }) => {
     body: JSON.stringify({ commentId, content }),
   };
 
-  return fetch(
-    `${SERVER_PATH}/api/posts/${postId}/comments/${commentId}`,
-    options
-  );
+  return fetch(`/api/posts/${postId}/comments/${commentId}`, options);
 };
 
 export const deleteComment = ({ postId, commentId }) => {
@@ -52,10 +55,7 @@ export const deleteComment = ({ postId, commentId }) => {
     credentials: 'include',
   };
 
-  return fetch(
-    `${SERVER_PATH}/api/posts/${postId}/comments/${commentId}`,
-    options
-  );
+  return fetch(`/api/posts/${postId}/comments/${commentId}`, options);
 };
 
 export const getAllPosts = () => {
@@ -65,7 +65,7 @@ export const getAllPosts = () => {
     credentials: 'include',
   };
 
-  return fetch(`${SERVER_PATH}/api/posts`, options);
+  return fetch(`/api/posts`, options);
 };
 
 export const getPostById = id => {
@@ -75,7 +75,7 @@ export const getPostById = id => {
     credentials: 'include',
   };
 
-  return fetch(`${SERVER_PATH}/api/posts/${id}`, options);
+  return fetch(`/api/posts/${id}`, options);
 };
 
 export const deleteViewer = () => {
@@ -85,7 +85,7 @@ export const deleteViewer = () => {
     credentials: 'include',
   };
 
-  return fetch(`${SERVER_PATH}/api/viewer/delete`, options);
+  return fetch(`/api/viewer/delete`, options);
 };
 
 export const deletePost = id => {
@@ -95,7 +95,7 @@ export const deletePost = id => {
     credentials: 'include',
   };
 
-  return fetch(`${SERVER_PATH}/api/posts/${id}`, options);
+  return fetch(`/api/posts/${id}`, options);
 };
 
 export const updatePost = ({ content, title, postId }) => {
@@ -106,7 +106,7 @@ export const updatePost = ({ content, title, postId }) => {
     body: JSON.stringify({ content, title }),
   };
 
-  return fetch(`${SERVER_PATH}/api/posts/${postId}`, options);
+  return fetch(`/api/posts/${postId}`, options);
 };
 
 export const savePost = ({ content, title }) => {
@@ -117,7 +117,7 @@ export const savePost = ({ content, title }) => {
     body: JSON.stringify({ content, title }),
   };
 
-  return fetch(`${SERVER_PATH}/api/posts`, options);
+  return fetch(`/api/posts`, options);
 };
 
 export const getAllUsers = () => {
@@ -127,7 +127,7 @@ export const getAllUsers = () => {
     credentials: 'include',
   };
 
-  return fetch(`${SERVER_PATH}/api/users`, options);
+  return fetch(`/api/users`, options);
 };
 
 export const login = ({ username, password }) => {
@@ -138,7 +138,7 @@ export const login = ({ username, password }) => {
     body: JSON.stringify({ username: username.toLowerCase(), password }),
   };
 
-  return fetch(`${SERVER_PATH}/api/login`, options);
+  return fetch(`/api/login`, options);
 };
 
 export const logout = () => {
@@ -148,7 +148,7 @@ export const logout = () => {
     headers: requestHeaders,
   };
 
-  return fetch(`${SERVER_PATH}/api/logout`, options);
+  return fetch(`/api/logout`, options);
 };
 
 export const signup = ({ username, password, verify }) => {
@@ -156,8 +156,12 @@ export const signup = ({ username, password, verify }) => {
     method: 'POST',
     headers: requestHeaders,
     credentials: 'include',
-    body: JSON.stringify({ username: username.toLowerCase(), password, verify }),
+    body: JSON.stringify({
+      username: username.toLowerCase(),
+      password,
+      verify,
+    }),
   };
 
-  return fetch(`${SERVER_PATH}/api/signup`, options);
+  return fetch(`/api/signup`, options);
 };

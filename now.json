@@ -1,0 +1,10 @@
+{
+  "env": {
+    "PRODUCTION_USERNAME": "@production-username",
+    "PRODUCTION_PASSWORD": "@production-password",
+    "PRODUCTION_DATABASE": "@production-database",
+    "PRODUCTION_HOST": "@production-host",
+    "PRODUCTION_PORT": "@production-port",
+    "PRODUCTION_SECRET": "@production-secret"
+  }
+}

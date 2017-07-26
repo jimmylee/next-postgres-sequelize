@@ -1,10 +1,13 @@
-import React from 'react';
-import Input from './Input';
-import Button from './Button';
+import * as React from 'react';
 import * as Actions from '../common/actions';
+
+import Input from '../components/Input';
+import Button from '../components/Button';
+import Border from '../components/Border';
+
 import { connect } from 'react-redux';
 
-class SignupForm extends React.Component {
+class AuthSignupForm extends React.Component {
   state = {
     username: '',
     password: '',
@@ -21,30 +24,13 @@ class SignupForm extends React.Component {
 
   render() {
     return (
-      <div className="form">
-        <style jsx>{`
-          .spacer {
-            height: 16px;
-            margin: 0;
-            width: 100%;
-            display: block;
-            border: 0;
-          }
-          .large-spacer {
-            height: 24px;
-            margin: 0;
-            width: 100%;
-            display: block;
-            border: 0;
-          }
-        `}</style>
+      <div style={this.props.style}>
         <Input
           label="Username"
           value={this.state.username}
           name="username"
           onChange={this._handleChange}
         />
-        <hr className="spacer" />
         <Input
           label="Password"
           value={this.state.password}
@@ -52,7 +38,6 @@ class SignupForm extends React.Component {
           type="password"
           onChange={this._handleChange}
         />
-        <hr className="spacer" />
         <Input
           label="Verify your password"
           value={this.state.verify}
@@ -61,8 +46,7 @@ class SignupForm extends React.Component {
           onChange={this._handleChange}
           onSubmit={this._handleSubmit}
         />
-        <hr className="large-spacer" />
-        <Button onClick={this._handleSubmit}>
+        <Button onClick={this._handleSubmit} style={{ marginTop: 16 }}>
           Sign up
         </Button>
       </div>
@@ -70,4 +54,4 @@ class SignupForm extends React.Component {
   }
 }
 
-export default connect(state => state)(SignupForm);
+export default connect(state => state)(AuthSignupForm);

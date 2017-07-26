@@ -1,14 +1,19 @@
-import React from 'react';
+import * as React from 'react';
+import * as Text from '../components/Text';
+import * as Strings from '../common/strings';
+import * as Actions from '../common/actions';
+
+import Border from '../components/Border';
 import Textarea from '../components/Textarea';
+import Button from '../components/Button';
 import Document from '../components/Document';
 import CommentPreview from '../components/CommentPreview';
 import ColumnLayout from '../components/ColumnLayout';
 import CommentForm from '../components/CommentForm';
-import PublicNav from '../components/PublicNav';
-import Nav from '../components/Nav';
+import PostLockup from '../components/PostLockup';
+import NavAuthenticated from '../components/NavAuthenticated';
+import NavPublic from '../components/NavPublic';
 import withData from '../higher-order/withData';
-import * as Strings from '../common/strings';
-import * as Actions from '../common/actions';
 
 class Post extends React.Component {
   state = {
@@ -52,19 +57,12 @@ class Post extends React.Component {
   };
 
   render() {
-    const navigation = !this.props.isAuthenticated ? <PublicNav /> : <Nav />;
+    const navigation = !this.props.isAuthenticated ? <NavPublic /> : <NavAuthenticated />;
 
     const { post, viewer } = this.props;
     if (!post) {
       return (
         <Document>
-          <style jsx>{`
-          .title {
-            font-size: 2.618rem;
-            font-weight: 600;
-            cursor: pointer;
-          }
-        `}</style>
           {navigation}
           <ColumnLayout>
             <h1 className="title">Post not found</h1>
@@ -74,115 +72,69 @@ class Post extends React.Component {
     }
 
     const { isEditing } = this.state;
-    const isEditable = viewer && viewer.id === post.User.id;
+    const isEditable = viewer && viewer.id === post.user.id;
 
-    const commentForm = this.props.isAuthenticated
-      ? <CommentForm postId={post.id} />
-      : undefined;
-    const comments = this.props.post.comments.map(c => (
-      <CommentPreview key={`cmmt-${c.id}`} {...c} />
-    ));
+    const commentForm = this.props.isAuthenticated ? (
+      <CommentForm postId={post.id} title="Reply to this post" placeholder="Leave a comment..." />
+    ) : (
+      <div style={{ padding: `16px 0 16px 0` }}>
+        To leave a comment, <Text.Anchor href="/">log in or create an account</Text.Anchor>.
+      </div>
+    );
+
+    const maybeCommentElements = this.props.post.comments
+      .filter(c => {
+        return !c.commentId;
+      })
+      .map(c => <CommentPreview key={`cmmt-${c.id}`} {...c} />);
 
     return (
       <Document>
-        <style jsx>{`
-          .title {
-            font-size: 2.618rem;
-            line-height: 2.8rem;
-            font-weight: 600;
-            overflow-wrap: break-word;
-            white-space: pre-wrap;
-          }
-
-          .meta {
-            font-size: 0.8rem;
-            margin: 16px 0 0 0;
-            overflow-wrap: break-word;
-            white-space: pre-wrap;
-          }
-
-          .content {
-            white-space: pre-wrap;
-            overflow-wrap: break-word;
-            margin-top: 2rem;
-          }
-
-          .comments {
-            padding: 68px 0 24px 0;
-          }
-
-          .item {
-            margin-right: 16px;
-            font-size: 12px;
-            text-decoration: underline;
-            cursor: pointer;
-          }
-
-          .actions {
-            margin-bottom: 1rem;
-          }
-        `}</style>
         {navigation}
         <ColumnLayout>
-          {isEditable
-            ? <div className="actions">
-                {!isEditing
-                  ? <span className="item" onClick={this._handleEdit}>
-                      Edit Post
-                    </span>
-                  : undefined}
-                {isEditing
-                  ? <span className="item" onClick={this._handleCancel}>
-                      Cancel
-                    </span>
-                  : undefined}
-                {isEditing
-                  ? <span className="item" onClick={this._handleSave}>
-                      Save
-                    </span>
-                  : undefined}
-                <span className="item" onClick={this._handleDelete}>
-                  Delete
-                </span>
-              </div>
-            : undefined}
-          {isEditing
-            ? <Textarea
-                value={this.state.title}
-                placeholder="Optional title"
-                fontWeight={600}
-                lineHeight="2.8rem"
-                fontSize="2.618rem"
-                onChange={this._handleTitleChange}
-              />
-            : undefined}
-          {!isEditing
-            ? <h1 className="title">{this.state.title}</h1>
-            : undefined}
-          <p className="meta">
-            by
-            {' '}
-            {post.User.username}
-            {' '}
-            on
-            {' '}
-            {Strings.toDate(post.createdAt)}
-          </p>
-          {isEditing
-            ? <Textarea
-                value={this.state.content}
-                placeholder="Start writing..."
-                onChange={this._handleContentChange}
-              />
-            : undefined}
-          {!isEditing
-            ? <p className="content">{this.state.content}</p>
-            : undefined}
-          {!isEditing
-            ? <div className="comments">
-                {comments}
-              </div>
-            : undefined}
+          {isEditable ? (
+            <div>
+              {!isEditing ? <Button onClick={this._handleEdit}>Edit Post</Button> : undefined}
+              {isEditing ? <Button onClick={this._handleCancel}>Cancel</Button> : undefined}
+              {isEditing ? <Button onClick={this._handleSave}>Save</Button> : undefined}
+              <Button onClick={this._handleDelete}>Delete</Button>
+            </div>
+          ) : (
+            undefined
+          )}
+          {isEditing ? (
+            <Textarea
+              value={this.state.title}
+              placeholder="Optional title"
+              fontWeight={600}
+              lineHeight="2.8rem"
+              fontSize="2.618rem"
+              onChange={this._handleTitleChange}
+            />
+          ) : (
+            <Text.Heading1>{this.state.title}</Text.Heading1>
+          )}
+          <PostLockup
+            commentLength={post.comments.length}
+            createdAt={post.createdAt}
+            username={post.user.username}
+          />
+          {isEditing ? (
+            <Textarea
+              value={this.state.content}
+              placeholder="Start writing..."
+              onChange={this._handleContentChange}
+            />
+          ) : (
+            undefined
+          )}
+          {!isEditing ? (
+            <Text.PostBody style={{ margin: '16px 0 88px 0' }}>{this.state.content}</Text.PostBody>
+          ) : (
+            undefined
+          )}
+          {!isEditing ? <div>{maybeCommentElements}</div> : undefined}
+          <Border />
           {!isEditing ? commentForm : undefined}
         </ColumnLayout>
       </Document>

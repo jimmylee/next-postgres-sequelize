@@ -1,7 +1,7 @@
 import expressSession from 'cookie-session';
-import { session } from '../config.js';
 import bcrypt from 'bcrypt';
 import { Strategy } from 'passport-local';
+import { session } from '../config.js';
 import { User } from './models';
 
 module.exports = (app, passport) => {
@@ -25,6 +25,7 @@ module.exports = (app, passport) => {
     passwordField: 'password',
     session: true,
   };
+
   const newLocalStrategy = new Strategy(
     newLocalStrategyOptions,
     async (username, password, done) => {
@@ -72,7 +73,7 @@ module.exports = (app, passport) => {
       });
 
       if (!user) {
-        return done(new Error('Wrong user id.'));
+        return done(null, false, { message: 'User does not exist' });
       }
 
       return done(null, user);

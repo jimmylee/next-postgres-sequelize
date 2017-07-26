@@ -1,13 +1,17 @@
-import React from 'react';
+import * as React from 'react';
 import PropTypes from 'prop-types';
-import Textarea from './Textarea';
-import Button from './Button';
+import Border from '../components/Border';
+import Textarea from '../components/Textarea';
+import Button from '../components/Button';
 import * as Actions from '../common/actions';
+import * as Text from '../components/Text';
 import { connect } from 'react-redux';
 
-class CommentList extends React.Component {
+class CommentForm extends React.Component {
   static defaultProps = {
     postId: PropTypes.string,
+    commentId: PropTypes.string,
+    title: PropTypes.string,
   };
 
   state = {
@@ -18,43 +22,49 @@ class CommentList extends React.Component {
     this.setState({ content: e.target.value });
   };
 
-  _handleSendComment = e => {
-    this.props.dispatch(
-      Actions.requestSaveComment({
-        content: this.state.content,
-        postId: this.props.postId,
-      })
-    );
+  _handleSend = e => {
+    const data = {
+      commentId: this.props.commentId,
+      content: this.state.content,
+      postId: this.props.postId,
+    };
+
+    if (this.props.commentId) {
+      return this.props.dispatch(Actions.requestSaveReply(data));
+    }
+
+    return this.props.dispatch(Actions.requestSaveComment(data));
   };
 
   render() {
     return (
-      <div className="container">
-        <style jsx>{`
-          .comment {
-            width: 100%;
-            position: relative;
-            border: 2px solid #000000;
-            box-shadow: 4px 4px 0 #000000;
-            padding: 16px;
-            box-sizing: border-box;
-            margin: 0 0 48px 0;
-          }
-        `}</style>
-        <div className="comment">
+      <div>
+        <header style={{ margin: '16px 0 16px 0' }}>
+          <Text.PageTitle>{this.props.title}</Text.PageTitle>
+          <div>
+            {this.props.isReplying ? (
+              <Button onClick={this.props.onCancel}>Cancel</Button>
+            ) : (
+              undefined
+            )}
+          </div>
+        </header>
+        <div>
           <Textarea
+            autoFocus={this.props.autoFocus}
             label="comment"
-            placeholder="Leave a comment..."
+            placeholder={this.props.placeholder}
             value={this.state.content}
             onChange={this._handleContentChange}
+            style={{ marginBottom: 24 }}
           />
+          <div>
+            <Button onClick={this._handleSend}>Submit</Button>
+          </div>
         </div>
-        <Button onClick={this._handleSendComment}>
-          Submit
-        </Button>
       </div>
     );
   }
 }
 
-export default connect(state => state)(CommentList);
+export default connect(state => state)(CommentForm);

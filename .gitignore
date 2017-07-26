@@ -1,6 +1,8 @@
 .next
 .vscode
 .package-lock.json
+package-lock.json
+.now-secrets.json
 node_modules
 # Logs
 logs

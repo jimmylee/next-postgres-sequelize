@@ -1,52 +1,60 @@
 # next-postgres
 
-This is a minimal example of a forum web application with posts and comments. 
+This is an example of a full stack web application with posts, comments and server side rendering. It is configured to be deployed to [Zeit](https://zeit.co) but I also provide Heroku [deployment steps](https://github.com/jimmylee/next-postgres/blob/master/HEROKU.md).
 
-Uses:
-
-- [NextJS + Custom Express](https://github.com/zeit/next.js/)
-- [Postgres](https://www.postgresql.org/)
-- [Styled-JSX](https://github.com/zeit/styled-jsx)
-- [Passport with local authentication](http://passportjs.org/)
-- [Heroku](https://www.heroku.com)
-- [Redux](http://redux.js.org/) + [Higher-Order Components](https://facebook.github.io/react/docs/higher-order-components.html)
-- [Babel + Stage-1 + Stage-2 + Stage-3](https://babeljs.io/)
-
-![screen shot 2017-07-19 at 11 52 41 pm](https://user-images.githubusercontent.com/310223/28404296-852923d2-6cdd-11e7-88fb-d51697776866.png)
-
-Getting setup should only take 5 minutes!
-
-Useful for:
-
-- Building 100% JavaScript applications with example code.
-- Testing out concepts before bringing them over to real work.
-- Getting [server side rendering](https://zeit.co/blog/next2) right.
-- Looking like you have cheat codes at a Hackathon.
-
-You can [view the demo on heroku](https://guarded-coast-67601.herokuapp.com/). Below are steps to deploy your own.
-
-Coming soon: a [React Native](https://facebook.github.io/react-native/) application built with [Expo](https://expo.io) that communicates to an API served from here.
+It is code you can use without attribution, please enjoy. 🙏
 
 
+#### Production Examples:
 
-## Prerequisites
+* [Maurice Kenji Clarke](https://twitter.com/mauricekenji) used the setup to create: [https://indvstry.io/](https://indvstry.io/)
+* I used some of the ideas here for a serious project: [Reading Supply](https://reading.supply)
 
-- I use [Homebrew](https://brew.sh/). Using it makes it easier to follow these steps.
-- Install Postgres: `brew install postgres`.
-- Install [Node 6+](https://nodejs.org/en/): `brew install node`.
+#### Preview:
+
+* [https://next-postgres.herokuapp.com/](https://next-postgres.herokuapp.com/)
 
 
+### Stack
 
-## Quick newbies guide to Postgres
+* [NextJS + Custom Express](https://github.com/zeit/next.js/)
+* [Emotion CSS-in-JS](https://github.com/emotion-js/emotion)
+* [Postgres](https://www.postgresql.org/)
+* [Sequelize: PostgresSQL ORM](http://docs.sequelizejs.com/)
+* [Passport for local authentication](http://passportjs.org/)
+* [Redux](http://redux.js.org/)
+* [Babel](https://babeljs.io/)
 
-- On OSX, to run Postgres: 
+
+### Why is this useful? Why should I care?
+
+* The UX and UI are garbage, that means everything you do after will be better!
+* Client and server are written in JavaScript.
+* This is a production ready codebase you can use to test a concept you have.
+* [Server side rendering](https://zeit.co/blog/next2) has been made simple.
+* Maybe you want to get a head start at a hackathon.
+
+
+## Setup: Prerequisites
+
+I use [Homebrew](https://brew.sh/) to manage dependencies on a new laptop... You're welcome to use something else.
+
+* Install Postgres: `brew install postgres`.
+* Install [Node 10.7.0+](https://nodejs.org/en/): `brew install node`. (Or update your node)
+
+
+## Setup: Quick newbies guide to Postgres
+
+* On OSX, to run Postgres in a tab on the default port.
 
 ```sh
-pg_ctl -D /usr/local/var/postgres start
+postgres -D /usr/local/var/postgres -p 5432
 ```
 
-- There is a file named `./config.js`.
-- That file points to a local database named `testdb`. With the username and password as `test`.
+* Postgres config is stored in `./config.js`.
+* Local database: `sampledb`.
+* Username and password as `test`.
+
 
 ### First time Postgres instructions.
 
@@ -66,98 +74,82 @@ ALTER ROLE yourname CREATEDB;
 # Log in as your new user.
 psql postgres -U yourname
 
-# Create a database named: testdb.
+# Create a database named: sampledb.
 # If you change this, update config.js
-CREATE DATABASE testdb;
+CREATE DATABASE sampledb;
 
 # Give your self privileges
-GRANT ALL PRIVILEGES ON DATABASE testdb TO yourname;
+GRANT ALL PRIVILEGES ON DATABASE sampledb TO yourname;
 
 # List all of your databases
 \list
 
 # Connect to your newly created DB as a test
-\connect testdb
+\connect sampledb
 
 # Exit Postgres console
 \q
 ```
 
-You wont return here unless you drop tables. You can also use a GUI if you like.
+I also use a GUI called [TablePlus](https://tableplus.io/) if you don't like command line.
 
 
+## Setup: Run locally
 
-## Running the app locally
-
-While in the root directory of the repo:
+In the root directory run these commands:
 
 ```sh
 npm install
+npm install -g babel-cli
 npm install -g sequelize-cli
 sequelize db:migrate
 npm run dev
 ```
 
-You can now visit `localhost:8000` in the browser of your choice.
+Visit `localhost:8000` in a browser to start development locally. You will need postgres running.
 
 
+## Deploy Heroku (Alternative choice)
 
-## Setup Heroku
+To deploy with Heroku, please follow the instructions [here](https://github.com/jimmylee/next-postgres/blob/master/HEROKU.md).
 
-Install Heroku.
-
-```sh
-npm install -g heroku-cli
-heroku login
-heroku create
-```
-
-Heroku will give you a unique address, like ours: `guarded-coast-67601.herokuapp.com`.
-
-Already have a heroku app to deploy to?
-
-```
-heroku git:remote -a name-of-your-heroku-app
-```
+There are very specific details you must pay attention to.
 
 
+## Deploy Zeit
 
-## Setup Postgres and config vars
-
-Go to https://data.heroku.com, add a datastore, pick Postgres.
-
-You will receive `database`, `host`, `password`, `port`, and `username` values. Here is how you set them:
+Deploying with `now-cli` is as simple as
 
 ```sh
-# Set variables
-heroku config:set PRODUCTION_DATABASE=NAME_PROVIDED_FROM_HEROKU
-heroku config:set PRODUCTION_HOST=HOST_PROVIDED_FROM_HEROKU
-heroku config:set PRODUCTION_PASSWORD=PASSWORD_PROVIDED_FROM_HEROKU
-heroku config:set PRODUCTION_PORT=PORT_PROVIDED_FROM_HEROKU
-heroku config:set PRODUCTION_USERNAME=USERNAME_PROVIDED_FROM_HEROKU
-
-# See all of your variables
-heroku config
+now
 ```
 
-Set a secret for [cookie-session](https://github.com/expressjs/cookie-session):
+Do you have a custom domain? You can use an `alias`
 
 ```sh
-heroku config:set PRODUCTION_SECRET=PICK_A_SECRET
+# after the deploy, alias to your domain, add "alias" to now.json first
+now alias
 ```
 
+Make sure you configure your alias for [zeit.world](https://zeit.world). Also make sure you add the secrets you need or delete the ones you aren't using from `now-secrets.json`.
 
 
-## Deploy to Heroku
+## Database + Secrets
+
+You can use a service like [https://compose.io](https://compose.io) to get a hosted Postgres database.
+
+Then update production secrets using `now secrets`. You must do this or else your website can't connect to the production database.
 
 ```sh
-git push heroku master
+now secrets add production-username   xxxxxxxxxxxxxxx
+now secrets add production-password   xxxxxxxxxxxxxxx
+now secrets add production-database   xxxxxxxxxxxxxxx
+now secrets add production-host       xxxxxxxxxxxxxxx
+now secrets add production-port       xxxxxxxxxxxxxxx
+now secrets add production-secret     xxxxxxxxxxxxxxx
 ```
-
-append `--force` if necessary.
-
 
 
 ## Questions?
 
-Feel free to slang any feels to [@meanjim](https://twitter.com/meanjim).
+Feel free to slang any feels to [@wwwjim](https://twitter.com/wwwjim).

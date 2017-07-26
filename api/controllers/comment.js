@@ -1,3 +1,4 @@
+import queries from './queries';
 import { Comment, User, Post } from '../models';
 
 module.exports = {
@@ -5,6 +6,7 @@ module.exports = {
     try {
       await Comment.create({
         content: req.body.content,
+        commentId: req.body.commentId,
         postId: req.body.postId,
         userId: req.user.id,
       });
@@ -17,35 +19,22 @@ module.exports = {
 
   async list(req, res) {
     try {
-      const comments = await Comment.findAll({
-        order: [['createdAt', 'DESC']],
-        include: [
-          {
-            model: User,
-          },
-        ],
-      });
+      const comments = await Comment.findAll(
+        queries.comments.list({ User, Post, Comment })
+      );
 
       return res.status(200).send(comments);
     } catch (err) {
+      throw new Error(err);
       return res.status(500).send(err);
     }
   },
 
   async get(req, res) {
     try {
-      const comment = await Comment.find({
-        where: {
-          id: req.params.commentId,
-          postId: req.params.postId,
-          userId: req.user.id,
-        },
-        include: [
-          {
-            model: User,
-          },
-        ],
-      });
+      const comment = await Comment.find(
+        queries.comments.get({ req, User, Post, Comment })
+      );
 
       if (!comment) {
         return res.status(404).send({
@@ -61,18 +50,10 @@ module.exports = {
 
   async getAll(req, res) {
     try {
-      const comments = await Comment.findAll({
-        where: {
-          id: req.params.commentId,
-          userId: req.user.id,
-        },
-        include: [
-          {
-            model: User,
-          },
-        ],
-        order: [['createdAt', 'DESC']],
-      });
+      const comments = await Comment.findAll(
+        queries.comments.listForUser({ req, User, Post, Comment })
+      );
+
       if (!comments) {
         return res.status(404).send({
           message: '404 comments',
