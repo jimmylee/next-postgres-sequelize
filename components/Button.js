@@ -20,19 +20,19 @@ export default class Button extends React.Component {
         onClick={this.props.onClick}>
         <style jsx>{`
           .button {
+            background: #0000FF;
+            color: #FFFFFF;
+            padding: 16px;
             cursor: pointer;
             line-height: 1;
             font-size: 16px;
             font-weight: 600;
-            text-decoration: underline;
-            background-color: transparent;
-            color: rgba(0, 0, 0, 1);
             transition: 200ms all linear;
             transition-property: transform, color;
           }
 
           .button:hover {
-            color: rgba(0, 0, 0, 0.9);
+            background: #1111AF;
           }
 
           .button:active {

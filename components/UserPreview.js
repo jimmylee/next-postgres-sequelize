@@ -36,8 +36,14 @@ class UserPreview extends React.Component {
           }
 
           .action {
-            text-decoration: underline;
+            color: #0000FF;
             cursor: pointer;
+            text-decoration: underline;
+            transition: color 200ms ease;
+
+            &:hover {
+              color: #1111AF;
+            }
           }
 
           .left {
@@ -51,7 +57,7 @@ class UserPreview extends React.Component {
         `}</style>
         <div className="left">
           <span className="item item--bold">
-            {this.props.username}
+            👤 {this.props.username}
           </span>
           <span className="item">
             Joined on {Strings.toDate(this.props.createdAt)}

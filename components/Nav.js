@@ -25,7 +25,7 @@ class Nav extends React.Component {
           Users ({this.props.users.length})
         </Link>
         <Link className="link" onClick={this._handleLogout}>
-          Logout
+          Log out
         </Link>
       </NavLayout>
     );

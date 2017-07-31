@@ -57,9 +57,7 @@ class LoginForm extends React.Component {
         />
         <hr className="large-spacer" />
         <Button onClick={this._handleSubmit}>
-          {Strings.isEmpty(this.state.username)
-            ? 'Fill out the fields to log in'
-            : `Log in with ${this.state.username}`}
+          Log in
         </Button>
       </div>
     );

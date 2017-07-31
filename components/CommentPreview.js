@@ -71,8 +71,14 @@ class CommentPreview extends React.Component {
 
           .item {
             margin-right: 16px;
+            color: #0000FF;
             cursor: pointer;
             text-decoration: underline;
+            transition: color 200ms ease;
+
+            &:hover {
+              color: #1111AF;
+            }
           }
 
           .actions {
@@ -90,10 +96,25 @@ class CommentPreview extends React.Component {
             font-size: 12px;
             margin-bottom: 8px;
           }
+
+          .response {
+            margin-bottom: 16px;
+          }
+
+          .title {
+            font-weight: 600;
+          }
         `}</style>
         <div>
+          {this.props.showResponse
+            ? <blockquote className="response" onClick={this._handleView}>
+                📮 In response to
+                {' '}
+                <span className="title">“{this.props.Post.title}”</span>
+              </blockquote>
+            : undefined}
           {!isEditing
-            ? <p onClick={this._handleView}>
+            ? <p>
                 {this.state.content}
               </p>
             : undefined}

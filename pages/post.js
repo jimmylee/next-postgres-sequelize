@@ -78,7 +78,32 @@ class Post extends React.Component {
 
     const commentForm = this.props.isAuthenticated
       ? <CommentForm postId={post.id} />
-      : undefined;
+      : <div className="comments--unauthenticated">
+          <style jsx>{`
+            .comments--unauthenticated {
+              border-top: 1px solid #ECECEC;
+              padding: 48px 0 48px 0;
+            }
+
+            .item {
+              color: #0000FF;
+              cursor: pointer;
+              text-decoration: underline;
+              transition: color 200ms ease;
+
+              &:hover {
+                color: #1111AF;
+              }
+
+              &:visited {
+                color: #0000FF;
+              }
+            }
+          `}</style>
+          To leave a comment,
+          {' '}
+          <a className="item" href="/">log in or create an account</a>.
+        </div>;
     const comments = this.props.post.comments.map(c => (
       <CommentPreview key={`cmmt-${c.id}`} {...c} />
     ));
@@ -114,8 +139,18 @@ class Post extends React.Component {
           .item {
             margin-right: 16px;
             font-size: 12px;
-            text-decoration: underline;
+            color: #0000FF;
             cursor: pointer;
+            text-decoration: underline;
+            transition: color 200ms ease;
+
+            &:hover {
+              color: #1111AF;
+            }
+
+            &:visited {
+              color: #0000FF;
+            }
           }
 
           .actions {

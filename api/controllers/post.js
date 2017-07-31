@@ -25,11 +25,20 @@ module.exports = {
             include: [
               {
                 model: User,
+                attributes: {
+                  exclude: ['salt', 'password'],
+                },
+              },
+              {
+                model: Post,
               },
             ],
           },
           {
             model: User,
+            attributes: {
+              exclude: ['salt', 'password'],
+            },
           },
         ],
         order: [['createdAt', 'DESC']],
@@ -51,11 +60,20 @@ module.exports = {
             include: [
               {
                 model: User,
+                attributes: {
+                  exclude: ['salt', 'password'],
+                },
+              },
+              {
+                model: Post,
               },
             ],
           },
           {
             model: User,
+            attributes: {
+              exclude: ['salt', 'password'],
+            },
           },
         ],
       });

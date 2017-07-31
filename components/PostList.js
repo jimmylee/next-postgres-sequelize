@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 class PostList extends React.Component {
   render() {
     const posts = this.props.posts.map(p => (
-      <PostPreview key={`post-${p.id}`} {...p} />
+      <PostPreview key={`post-${p.id}`} post={p} />
     ));
 
     return (

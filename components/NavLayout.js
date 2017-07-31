@@ -16,17 +16,17 @@ export default class NavLayout extends React.Component {
             margin-right: 16px;
             text-decoration: underline;
             background-color: transparent;
-            color: rgba(0, 0, 0, 1);
+            color: #0000FF;
             transition: 200ms all linear;
             transition-property: transform, color;
           }
 
           .nav-layout :global(.link:visited) {
-            color: rgba(0, 0, 0, 1);
+            color: #0000FF;
           }
 
           .nav-layout :global(.link:hover) {
-            color: rgba(0, 0, 0, 0.8);
+            color: #1111AF;
           }
 
           .nav-layout {

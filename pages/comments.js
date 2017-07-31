@@ -14,7 +14,7 @@ class Comments extends React.Component {
       <Document>
         {navigation}
         <ColumnLayout>
-          <CommentList comments={this.props.comments} />
+          <CommentList showResponse comments={this.props.comments} />
         </ColumnLayout>
       </Document>
     );

@@ -38,20 +38,39 @@ class Index extends React.Component {
           .paragraph {
             margin-top: 1.125rem;
           }
+
+          .link {
+            color: #0000FF;
+            cursor: pointer;
+            text-decoration: underline;
+            transition: color 200ms ease;
+
+            &:hover {
+              color: #1111AF;
+            }
+          }
         `}</style>
 
         <h1 className="heading">
           next-postgres
         </h1>
         <p className="paragraph">
-          You are using an example of a React + NextJS + Postgres single page web application. For more details about how you can clone and deploy your own, visit <a target="blank" href="https://github.com/jimmylee/next-postgres">this GitHub repository</a>.
+          You are using an example of a React + NextJS + Postgres website. For more details about how you can clone and deploy your own, visit
+          {' '}
+          <a
+            className="link"
+            target="blank"
+            href="https://github.com/jimmylee/next-postgres">
+            this GitHub repository
+          </a>
+          .
         </p>
         <h2 className="heading-2">
-          Log in
+          🔐 Log in
         </h2>
         <LoginForm />
         <h2 className="heading-2">
-          Create a new user
+          👥 Create an account
         </h2>
         <SignupForm />
       </ColumnLayout>,
