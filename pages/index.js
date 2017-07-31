@@ -55,13 +55,33 @@ class Index extends React.Component {
           next-postgres
         </h1>
         <p className="paragraph">
-          You are using an example of a React + NextJS + Postgres website. For more details about how you can clone and deploy your own, visit
+          You are using an example of a React + NextJS + Postgres website. It is 💯 percent JavaScript. For more details about how you can clone and deploy your own, visit
           {' '}
           <a
             className="link"
             target="blank"
             href="https://github.com/jimmylee/next-postgres">
-            this GitHub repository
+            next-postgres on GitHub
+          </a>
+          .
+        </p>
+        <p className="paragraph">
+          There is also a 📱 mobile application powered by <a
+            className="link"
+            target="blank"
+            href="https://expo.io">
+            Expo
+          </a>. You can open the project <a
+            className="link"
+            target="blank"
+            href="https://expo.io/@jimmylee/expo-next-postgres">
+            here
+          </a>. To see the source code that project,{' '}
+          <a
+            className="link"
+            target="blank"
+            href="https://github.com/jimmylee/expo-next-postgres">
+            view expo-next-postgres on GitHub
           </a>
           .
         </p>

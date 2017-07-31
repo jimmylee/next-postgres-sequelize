@@ -25,16 +25,19 @@ Useful for:
 
 You can [view the demo on heroku](https://guarded-coast-67601.herokuapp.com/). Below are steps to deploy your own.
 
-Coming soon: a [React Native](https://facebook.github.io/react-native/) application built with [Expo](https://expo.io) that communicates to an API served from here.
+#### Also on React Native
 
+I also built a [React Native](https://facebook.github.io/react-native/) application with [Expo](https://expo.io) so that I could have an iOS, Android, and Web Application in 100% JavaScript.
 
+- Open it with [Expo Client](https://expo.io/@jimmylee/expo-next-postgres).
+- Get [Expo Client](https://expo.io/tools) if you need it.
+- View and take the [source code](https://github.com/jimmylee/expo-next-postgres) on GitHub.
 
 ## Prerequisites
 
 - I use [Homebrew](https://brew.sh/). Using it makes it easier to follow these steps.
 - Install Postgres: `brew install postgres`.
 - Install [Node 6+](https://nodejs.org/en/): `brew install node`.
-
 
 
 ## Quick newbies guide to Postgres
