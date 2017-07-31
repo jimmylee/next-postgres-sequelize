@@ -1,46 +1,47 @@
 # next-postgres
 
-This is a minimal example of a forum web application with posts and comments. 
+This is a example of a forum web application with posts, comments and server side rendering.
 
-Uses:
+It is deployed [here](https://guarded-coast-67601.herokuapp.com/).
+
+![screen shot 2017-07-31 at 1 13 27 am](https://user-images.githubusercontent.com/310223/28768733-a04035e4-758d-11e7-889f-513859de2f77.png)
+
+**Library breakdown**
 
 - [NextJS + Custom Express](https://github.com/zeit/next.js/)
 - [Postgres](https://www.postgresql.org/)
+- [Sequelize: PostgresSQL ORM](http://docs.sequelizejs.com/)
 - [Styled-JSX](https://github.com/zeit/styled-jsx)
-- [Passport with local authentication](http://passportjs.org/)
+- [Passport for local authentication](http://passportjs.org/)
 - [Heroku](https://www.heroku.com)
 - [Redux](http://redux.js.org/) + [Higher-Order Components](https://facebook.github.io/react/docs/higher-order-components.html)
-- [Babel + Stage-1 + Stage-2 + Stage-3](https://babeljs.io/)
+- [Babel](https://babeljs.io/)
 
-![screen shot 2017-07-19 at 11 52 41 pm](https://user-images.githubusercontent.com/310223/28404296-852923d2-6cdd-11e7-88fb-d51697776866.png)
+🐨 This code is for you to take! My only hope is that it is helpful. Below are deploy steps where you can deploy your own to [Heroku](https://www.heroku.com).
 
-Getting setup should only take 5 minutes!
+**Why is this useful?**
 
-Useful for:
+- The entire stack is written in JavaScript.
+- Test concepts before bringing them over to real work.
+- [Server side rendering](https://zeit.co/blog/next2) made simple.
+- Speed at Hackathons.
 
-- Building 100% JavaScript applications with example code.
-- Testing out concepts before bringing them over to real work.
-- Getting [server side rendering](https://zeit.co/blog/next2) right.
-- Looking like you have cheat codes at a Hackathon.
+**Mobile apps with JavaScript**
 
-You can [view the demo on heroku](https://guarded-coast-67601.herokuapp.com/). Below are steps to deploy your own.
-
-#### Also on React Native
-
-I also built a [React Native](https://facebook.github.io/react-native/) application with [Expo](https://expo.io) so that I could have an iOS, Android, and Web Application in 100% JavaScript.
+I also built a [React Native](https://facebook.github.io/react-native/) application with [Expo](https://expo.io) that sends network requests to a [deployed version of this application](https://guarded-coast-67601.herokuapp.com/). Below are steps to deploy your own).
 
 - Open it with [Expo Client](https://expo.io/@jimmylee/expo-next-postgres).
 - Get [Expo Client](https://expo.io/tools) if you need it.
 - View and take the [source code](https://github.com/jimmylee/expo-next-postgres) on GitHub.
 
-## Prerequisites
+## Setup: Prerequisites
 
-- I use [Homebrew](https://brew.sh/). Using it makes it easier to follow these steps.
+- Use [Homebrew](https://brew.sh/).
 - Install Postgres: `brew install postgres`.
 - Install [Node 6+](https://nodejs.org/en/): `brew install node`.
 
 
-## Quick newbies guide to Postgres
+## Setup: Quick newbies guide to Postgres
 
 - On OSX, to run Postgres: 
 
@@ -48,8 +49,9 @@ I also built a [React Native](https://facebook.github.io/react-native/) applicat
 pg_ctl -D /usr/local/var/postgres start
 ```
 
-- There is a file named `./config.js`.
-- That file points to a local database named `testdb`. With the username and password as `test`.
+- Postgres config is stored in `./config.js`.
+- Local database: `testdb`. 
+- Username and password as `test`.
 
 ### First time Postgres instructions.
 
@@ -89,10 +91,9 @@ GRANT ALL PRIVILEGES ON DATABASE testdb TO yourname;
 You wont return here unless you drop tables. You can also use a GUI if you like.
 
 
+## Setup: Run locally
 
-## Running the app locally
-
-While in the root directory of the repo:
+In the root directory run these commands:
 
 ```sh
 npm install
@@ -101,11 +102,10 @@ sequelize db:migrate
 npm run dev
 ```
 
-You can now visit `localhost:8000` in the browser of your choice.
+You can now visit `localhost:8000` in a browser.
 
 
-
-## Setup Heroku
+## Deploy: Setup Heroku
 
 Install Heroku.
 
@@ -125,7 +125,7 @@ heroku git:remote -a name-of-your-heroku-app
 
 
 
-## Setup Postgres and config vars
+## Deploy: Configure Postgres and environment variables on Heroku
 
 Go to https://data.heroku.com, add a datastore, pick Postgres.
 
@@ -151,7 +151,7 @@ heroku config:set PRODUCTION_SECRET=PICK_A_SECRET
 
 
 
-## Deploy to Heroku
+## Deploy
 
 ```sh
 git push heroku master
