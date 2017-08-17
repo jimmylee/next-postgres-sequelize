@@ -2,7 +2,7 @@
 
 This is a example of a forum web application with posts, comments and server side rendering.
 
-It is deployed [here](https://guarded-coast-67601.herokuapp.com/).
+It is deployed [here](https://next-postgres.herokuapp.com/).
 
 ![screen shot 2017-07-31 at 1 13 27 am](https://user-images.githubusercontent.com/310223/28768733-a04035e4-758d-11e7-889f-513859de2f77.png)
 
@@ -28,7 +28,7 @@ It is deployed [here](https://guarded-coast-67601.herokuapp.com/).
 
 **Mobile apps with JavaScript**
 
-I also built a [React Native](https://facebook.github.io/react-native/) application with [Expo](https://expo.io) that sends network requests to a [deployed version of this application](https://guarded-coast-67601.herokuapp.com/). Below are steps to deploy your own).
+I also built a [React Native](https://facebook.github.io/react-native/) application with [Expo](https://expo.io) that sends network requests to a [deployed version of this application](https://next-postgres.herokuapp.com/). Below are steps to deploy your own).
 
 - Open it with [Expo Client](https://expo.io/@jimmylee/expo-next-postgres).
 - Get [Expo Client](https://expo.io/tools) if you need it.
@@ -115,7 +115,7 @@ heroku login
 heroku create
 ```
 
-Heroku will give you a unique address, like ours: `guarded-coast-67601.herokuapp.com`.
+Heroku will give you a unique address, like ours: `https://next-postgres.herokuapp.com/`.
 
 Already have a heroku app to deploy to?
 
