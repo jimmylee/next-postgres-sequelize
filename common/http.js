@@ -31,6 +31,17 @@ export const saveComment = ({ postId, content }) => {
   return fetch(`${SERVER_PATH}/api/comments`, options);
 };
 
+export const saveReply = ({ postId, commentId, content }) => {
+  const options = {
+    method: 'POST',
+    headers: requestHeaders,
+    credentials: 'include',
+    body: JSON.stringify({ postId, commentId, content }),
+  };
+
+  return fetch(`${SERVER_PATH}/api/comments`, options);
+};
+
 export const updateComment = ({ postId, commentId, content }) => {
   const options = {
     method: 'PUT',
@@ -156,7 +167,11 @@ export const signup = ({ username, password, verify }) => {
     method: 'POST',
     headers: requestHeaders,
     credentials: 'include',
-    body: JSON.stringify({ username: username.toLowerCase(), password, verify }),
+    body: JSON.stringify({
+      username: username.toLowerCase(),
+      password,
+      verify,
+    }),
   };
 
   return fetch(`${SERVER_PATH}/api/signup`, options);

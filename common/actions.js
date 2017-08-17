@@ -53,6 +53,18 @@ export const requestSaveComment = options => {
   };
 };
 
+export const requestSaveReply = options => {
+  return async dispatch => {
+    const response = await HTTP.saveReply(options);
+
+    if (response.status !== 200) {
+      return exception('error');
+    }
+
+    window.location.reload();
+  };
+};
+
 export const requestUpdateComment = options => {
   return async dispatch => {
     const response = await HTTP.updateComment(options);

@@ -1,5 +1,5 @@
 import React from 'react';
-import PostPreview from './PostPreview';
+import PostPreview from '../components/PostPreview';
 import { connect } from 'react-redux';
 
 class PostList extends React.Component {

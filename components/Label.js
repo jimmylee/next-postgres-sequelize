@@ -19,7 +19,7 @@ export default class Label extends React.Component {
             text-transform: uppercase;
             font-weight: 500;
             z-index: 1;
-            color: #000000;
+            color: #24292e;
             position: absolute;
             top: 14px;
             left: 16px;

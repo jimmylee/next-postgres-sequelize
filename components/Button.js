@@ -3,12 +3,10 @@ import PropTypes from 'prop-types';
 
 export default class Button extends React.Component {
   static propTypes = {
-    rightOffset: PropTypes.number,
     onClick: PropTypes.func,
   };
 
   static defaultProps = {
-    rightOffset: 0,
     onClick: () => {},
   };
 
@@ -16,7 +14,7 @@ export default class Button extends React.Component {
     return (
       <button
         className="button"
-        style={{ marginRight: this.props.rightOffset }}
+        style={this.props.style}
         onClick={this.props.onClick}>
         <style jsx>{`
           .button {

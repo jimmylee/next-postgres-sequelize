@@ -1,5 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import ButtonText from '../components/ButtonText';
+import BoxHeaderLayout from '../components/BoxHeaderLayout';
 import * as Strings from '../common/strings';
 import * as Actions from '../common/actions';
 
@@ -10,66 +12,50 @@ class UserPreview extends React.Component {
 
   render() {
     const isViewer =
-      this.props.viewer && this.props.id === this.props.viewer.id;
+      this.props.viewer && this.props.user.id === this.props.viewer.id;
 
     return (
-      <div className="container">
+      <div className="container" style={this.props.style}>
         <style jsx>{`
           .container {
+            font-size: 14px;
             box-sizing: border-box;
-            margin: 0 0 16px 0;
-            padding: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            font-size: 12px;
-            padding: 16px;
-            border: 1px solid #ECECEC;
+            white-space: pre-wrap;
+            overflow-wrap: break-word;
           }
 
-          .item {
-            margin-right: 16px;
-          }
-
-          .item--bold {
+          .bold {
             font-weight: 600;
           }
 
-          .action {
-            color: #0000FF;
-            cursor: pointer;
-            text-decoration: underline;
-            transition: color 200ms ease;
-
-            &:hover {
-              color: #1111AF;
-            }
+          .content {
+            padding: 16px;
+            border-right: 1px solid #2e2f30;
+            border-left: 1px solid #2e2f30;
+            border-bottom: 1px solid #2e2f30;
           }
 
-          .left {
-            min-width: 25%;
-            width: 100%;
-          }
-
-          .right {
-            flex-shrink: 0;
+          .actions {
+            margin: 24px 0 0 0;
+            font-size: 12px;
           }
         `}</style>
-        <div className="left">
-          <span className="item item--bold">
-            👤 {this.props.username}
+        <BoxHeaderLayout style={{ background: '#2e2f30' }}>
+          <span className="bold">
+            {' '}{this.props.user.username}
           </span>
-          <span className="item">
-            Joined on {Strings.toDate(this.props.createdAt)}
-          </span>
+        </BoxHeaderLayout>
+        <div className="content">
+          Joined on {Strings.toDate(this.props.user.createdAt)}
+
+          {isViewer
+            ? <div className="actions">
+                <ButtonText onClick={this._handleDelete}>
+                  Delete your account
+                </ButtonText>
+              </div>
+            : undefined}
         </div>
-        {isViewer
-          ? <div className="right">
-              <span className="action" onClick={this._handleDelete}>
-                Delete your account
-              </span>
-            </div>
-          : undefined}
       </div>
     );
   }

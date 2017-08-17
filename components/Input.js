@@ -51,9 +51,9 @@ export default class Input extends React.Component {
             width: 100%;
             box-sizing: border-box;
             z-index: 1;
-            color: #000000;
-            border: 2px solid #000000;
-            box-shadow: 4px 4px 0 #000000;
+            color: #24292e;
+            border: 2px solid #24292e;
+            box-shadow: 4px 4px 0 #24292e;
           }
 
           .input:focus {

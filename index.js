@@ -13,7 +13,7 @@ import setupAuth from './api/auth';
 const routes = nextRoutes();
 const dev = process.env.NODE_ENV !== 'production';
 const port = parseInt(process.env.PORT, 10) || 8000;
-const app = next({ dev });
+const app = next({ dev, quiet: false });
 const customHandler = routes.getRequestHandler(app);
 
 app.prepare().then(() => {

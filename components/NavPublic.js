@@ -1,10 +1,10 @@
 import React from 'react';
-import Link from './Link';
-import NavLayout from './NavLayout';
+import Link from '../components/Link';
+import NavLayout from '../components/NavLayout';
 import * as Actions from '../common/actions';
 import { connect } from 'react-redux';
 
-class PublicNav extends React.Component {
+class NavPublic extends React.Component {
   render() {
     return (
       <NavLayout>
@@ -25,4 +25,4 @@ class PublicNav extends React.Component {
   }
 }
 
-export default connect(state => state)(PublicNav);
+export default connect(state => state)(NavPublic);

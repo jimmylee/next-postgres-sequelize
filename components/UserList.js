@@ -3,8 +3,12 @@ import UserPreview from '../components/UserPreview';
 
 export default class UserList extends React.Component {
   render() {
-    const users = this.props.users.map(u => (
-      <UserPreview key={`user-${u.id}`} {...u} />
+    const users = this.props.users.map(user => (
+      <UserPreview
+        key={`user-${user.id}`}
+        style={{ margin: '0 0 24px 0' }}
+        user={user}
+      />
     ));
 
     return (

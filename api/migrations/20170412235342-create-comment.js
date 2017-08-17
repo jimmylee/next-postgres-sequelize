@@ -6,7 +6,7 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       postId: {
         allowNull: false,
@@ -19,7 +19,7 @@ module.exports = {
         },
       },
       userId: {
-        allowNull: true,
+        allowNull: false,
         type: Sequelize.INTEGER,
         onDelete: 'CASCADE',
         references: {
@@ -28,20 +28,30 @@ module.exports = {
           as: 'userId',
         },
       },
+      commentId: {
+        allowNull: true,
+        type: Sequelize.INTEGER,
+        onDelete: 'CASCADE',
+        referenes: {
+          model: 'Comments',
+          key: 'id',
+          as: 'commentId',
+        },
+      },
       content: {
-        type: Sequelize.TEXT
+        type: Sequelize.TEXT,
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
     });
   },
   down: function(queryInterface, Sequelize) {
     return queryInterface.dropTable('Comments');
-  }
+  },
 };

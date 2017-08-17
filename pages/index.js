@@ -1,9 +1,9 @@
 import React from 'react';
 import Document from '../components/Document';
 import ColumnLayout from '../components/ColumnLayout';
-import LoginForm from '../components/LoginForm';
-import SignupForm from '../components/SignupForm';
-import PublicNav from '../components/PublicNav';
+import AuthLoginForm from '../components/AuthLoginForm';
+import AuthSignupForm from '../components/AuthSignupForm';
+import NavPublic from '../components/NavPublic';
 import PostList from '../components/PostList';
 import Nav from '../components/Nav';
 import withData from '../higher-order/withData';
@@ -20,7 +20,7 @@ class Index extends React.Component {
 
   renderLoggedOut = () => {
     return [
-      <PublicNav key="navigation" />,
+      <NavPublic key="navigation" />,
       <ColumnLayout key="layout">
         <style jsx>{`
           .heading {
@@ -55,44 +55,43 @@ class Index extends React.Component {
           next-postgres
         </h1>
         <p className="paragraph">
-          You are using an example of a React + NextJS + Postgres website. It is 💯 percent JavaScript. For more details about how you can clone and deploy your own, visit
-          {' '}
+          This project is an example of React + NextJS + Postgres. It is tailored for those who are enthusiastic about building websites with 100% JavaScript.
+          {' '}<br /><br />
           <a
             className="link"
             target="blank"
             href="https://github.com/jimmylee/next-postgres">
-            next-postgres on GitHub
+            View next-postgres on GitHub
           </a>
           .
         </p>
         <p className="paragraph">
-          There is also a 📱 mobile application powered by <a
-            className="link"
-            target="blank"
-            href="https://expo.io">
+          If you like writing mobile applications with 100% JavaScript, there is an example powered by
+          {' '}
+          <a className="link" target="blank" href="https://expo.io">
             Expo
-          </a>. You can open the project <a
+          </a>. You can open the <a
             className="link"
             target="blank"
             href="https://expo.io/@jimmylee/expo-next-postgres">
-            here
-          </a>. To see the source code that project,{' '}
+            project
+          </a> with Expo Client. {' '}<br /><br />
           <a
             className="link"
             target="blank"
             href="https://github.com/jimmylee/expo-next-postgres">
-            view expo-next-postgres on GitHub
+            View expo-next-postgres on GitHub
           </a>
           .
         </p>
         <h2 className="heading-2">
-          🔐 Log in
+          Log in
         </h2>
-        <LoginForm />
+        <AuthLoginForm />
         <h2 className="heading-2">
-          👥 Create an account
+          Create an account
         </h2>
-        <SignupForm />
+        <AuthSignupForm />
       </ColumnLayout>,
     ];
   };

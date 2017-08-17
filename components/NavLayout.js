@@ -1,5 +1,5 @@
 import React from 'react';
-import Link from './Link';
+import Link from '../components/Link';
 import * as Actions from '../common/actions';
 import { connect } from 'react-redux';
 

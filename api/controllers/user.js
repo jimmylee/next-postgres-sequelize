@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt';
 import passport from 'passport';
+import queries from './queries';
 import { User, Comment, Post } from '../models';
 
 const isEmptyOrNull = string => {
@@ -93,12 +94,9 @@ module.exports = {
 
   async list(req, res) {
     try {
-      const users = await User.findAll({
-        attributes: {
-          exclude: ['salt', 'password'],
-        },
-        order: [['createdAt', 'DESC']],
-      });
+      const users = await User.findAll(
+        queries.users.list({ req, User, Post, Comment })
+      );
 
       return res.status(200).send(users);
     } catch (err) {
@@ -108,22 +106,10 @@ module.exports = {
 
   async get(req, res) {
     try {
-      const user = await User.findById(req.params.userId, {
-        attributes: {
-          exclude: ['salt', 'password'],
-        },
-        include: [
-          {
-            model: Post,
-            as: 'posts',
-          },
-          {
-            model: Comment,
-            as: 'comments',
-          },
-        ],
-        order: [['createdAt', 'DESC']],
-      });
+      const user = await User.findById(
+        req.params.userId,
+        queries.users.get({ req, User, Post, Comment })
+      );
 
       if (!user) {
         return res.status(404).send({

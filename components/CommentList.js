@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CommentPreview from './CommentPreview';
+import CommentPreview from '../components/CommentPreview';
 import { connect } from 'react-redux';
 
 class CommentList extends React.Component {
@@ -13,6 +13,7 @@ class CommentList extends React.Component {
       <CommentPreview
         key={`cmmt-${c.id}`}
         showResponse={this.props.showResponse}
+        style={{ margin: '0 0 24px 0' }}
         {...c}
       />
     ));

@@ -4,6 +4,7 @@ import Label from '../components/Label';
 
 export default class Textarea extends React.Component {
   static propTypes = {
+    autoFocus: PropTypes.bool,
     onChange: PropTypes.func,
     name: PropTypes.string,
     value: PropTypes.string,
@@ -13,6 +14,7 @@ export default class Textarea extends React.Component {
   };
 
   static defaultProps = {
+    autoFocus: false,
     onChange: () => {},
     fontSize: '16px',
     fontWeight: 400,
@@ -31,6 +33,10 @@ export default class Textarea extends React.Component {
         ? scrollHeight
         : this.props.height,
     });
+
+    if (this.props.autoFocus) {
+      this.refs.textarea.focus();
+    }
   }
 
   _handleChange = e => {

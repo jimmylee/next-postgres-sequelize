@@ -1,6 +1,6 @@
 import React from 'react';
-import Link from './Link';
-import NavLayout from './NavLayout';
+import Link from '../components/Link';
+import NavLayout from '../components/NavLayout';
 import * as Actions from '../common/actions';
 import { connect } from 'react-redux';
 

@@ -1,11 +1,13 @@
 import React from 'react';
 import Textarea from '../components/Textarea';
+import ButtonText from '../components/ButtonText';
 import Document from '../components/Document';
 import CommentPreview from '../components/CommentPreview';
 import ColumnLayout from '../components/ColumnLayout';
 import CommentForm from '../components/CommentForm';
-import PublicNav from '../components/PublicNav';
+import PostLockup from '../components/PostLockup';
 import Nav from '../components/Nav';
+import NavPublic from '../components/NavPublic';
 import withData from '../higher-order/withData';
 import * as Strings from '../common/strings';
 import * as Actions from '../common/actions';
@@ -52,7 +54,7 @@ class Post extends React.Component {
   };
 
   render() {
-    const navigation = !this.props.isAuthenticated ? <PublicNav /> : <Nav />;
+    const navigation = !this.props.isAuthenticated ? <NavPublic /> : <Nav />;
 
     const { post, viewer } = this.props;
     if (!post) {
@@ -74,10 +76,14 @@ class Post extends React.Component {
     }
 
     const { isEditing } = this.state;
-    const isEditable = viewer && viewer.id === post.User.id;
+    const isEditable = viewer && viewer.id === post.user.id;
 
     const commentForm = this.props.isAuthenticated
-      ? <CommentForm postId={post.id} />
+      ? <CommentForm
+          postId={post.id}
+          title="Reply to this post"
+          placeholder="Leave a comment..."
+        />
       : <div className="comments--unauthenticated">
           <style jsx>{`
             .comments--unauthenticated {
@@ -104,9 +110,18 @@ class Post extends React.Component {
           {' '}
           <a className="item" href="/">log in or create an account</a>.
         </div>;
-    const comments = this.props.post.comments.map(c => (
-      <CommentPreview key={`cmmt-${c.id}`} {...c} />
-    ));
+
+    const maybeCommentElements = this.props.post.comments
+      .filter(c => {
+        return !c.commentId;
+      })
+      .map(c => (
+        <CommentPreview
+          key={`cmmt-${c.id}`}
+          {...c}
+          style={{ margin: '0 0 24px 0' }}
+        />
+      ));
 
     return (
       <Document>
@@ -119,13 +134,6 @@ class Post extends React.Component {
             white-space: pre-wrap;
           }
 
-          .meta {
-            font-size: 0.8rem;
-            margin: 16px 0 0 0;
-            overflow-wrap: break-word;
-            white-space: pre-wrap;
-          }
-
           .content {
             white-space: pre-wrap;
             overflow-wrap: break-word;
@@ -133,24 +141,7 @@ class Post extends React.Component {
           }
 
           .comments {
-            padding: 68px 0 24px 0;
-          }
-
-          .item {
-            margin-right: 16px;
-            font-size: 12px;
-            color: #0000FF;
-            cursor: pointer;
-            text-decoration: underline;
-            transition: color 200ms ease;
-
-            &:hover {
-              color: #1111AF;
-            }
-
-            &:visited {
-              color: #0000FF;
-            }
+            padding: 68px 0 0 0;
           }
 
           .actions {
@@ -162,23 +153,29 @@ class Post extends React.Component {
           {isEditable
             ? <div className="actions">
                 {!isEditing
-                  ? <span className="item" onClick={this._handleEdit}>
+                  ? <ButtonText
+                      onClick={this._handleEdit}
+                      style={{ margin: '0 16px 0 0' }}>
                       Edit Post
-                    </span>
+                    </ButtonText>
                   : undefined}
                 {isEditing
-                  ? <span className="item" onClick={this._handleCancel}>
+                  ? <ButtonText
+                      onClick={this._handleCancel}
+                      style={{ margin: '0 16px 0 0' }}>
                       Cancel
-                    </span>
+                    </ButtonText>
                   : undefined}
                 {isEditing
-                  ? <span className="item" onClick={this._handleSave}>
+                  ? <ButtonText
+                      onClick={this._handleSave}
+                      style={{ margin: '0 16px 0 0' }}>
                       Save
-                    </span>
+                    </ButtonText>
                   : undefined}
-                <span className="item" onClick={this._handleDelete}>
+                <ButtonText onClick={this._handleDelete}>
                   Delete
-                </span>
+                </ButtonText>
               </div>
             : undefined}
           {isEditing
@@ -190,19 +187,13 @@ class Post extends React.Component {
                 fontSize="2.618rem"
                 onChange={this._handleTitleChange}
               />
-            : undefined}
-          {!isEditing
-            ? <h1 className="title">{this.state.title}</h1>
-            : undefined}
-          <p className="meta">
-            by
-            {' '}
-            {post.User.username}
-            {' '}
-            on
-            {' '}
-            {Strings.toDate(post.createdAt)}
-          </p>
+            : <h1 className="title">{this.state.title}</h1>}
+          <PostLockup
+            style={{ margin: '16px 0 0 0' }}
+            commentLength={post.comments.length}
+            createdAt={post.createdAt}
+            username={post.user.username}
+          />
           {isEditing
             ? <Textarea
                 value={this.state.content}
@@ -215,7 +206,7 @@ class Post extends React.Component {
             : undefined}
           {!isEditing
             ? <div className="comments">
-                {comments}
+                {maybeCommentElements}
               </div>
             : undefined}
           {!isEditing ? commentForm : undefined}

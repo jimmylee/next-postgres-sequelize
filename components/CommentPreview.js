@@ -1,5 +1,10 @@
 import React from 'react';
+import Button from '../components/Button';
+import ButtonText from '../components/ButtonText';
 import Textarea from '../components/Textarea';
+import CommentPreviewHeader from '../components/CommentPreviewHeader';
+import CommentPreviewReply from '../components/CommentPreviewReply';
+import CommentForm from '../components/CommentForm';
 import { connect } from 'react-redux';
 import * as Actions from '../common/actions';
 import * as Strings from '../common/strings';
@@ -7,11 +12,20 @@ import * as Strings from '../common/strings';
 class CommentPreview extends React.Component {
   state = {
     isEditing: false,
+    isReplying: false,
     content: this.props.content,
   };
 
   _handleView = () => {
     window.location.href = `/post/${this.props.postId}`;
+  };
+
+  _handleReply = () => {
+    this.setState({ isReplying: true });
+  };
+
+  _handleCancelReply = () => {
+    this.setState({ isReplying: false });
   };
 
   _handleEdit = () => {
@@ -20,6 +34,10 @@ class CommentPreview extends React.Component {
 
   _handleCancel = () => {
     this.setState({ isEditing: false, content: this.props.content });
+  };
+
+  _handleContentChange = e => {
+    this.setState({ content: e.target.value });
   };
 
   _handleSave = () => {
@@ -32,124 +50,145 @@ class CommentPreview extends React.Component {
     );
   };
 
-  _handleContentChange = e => {
-    this.setState({ content: e.target.value });
-  };
-
-  _handleDelete = () => {
+  _handleDelete = commentId => {
     this.props.dispatch(
       Actions.requestDeleteComment({
         postId: this.props.postId,
-        commentId: this.props.id,
+        commentId,
       })
     );
   };
 
   render() {
-    const { viewer, User } = this.props;
-    const { isEditing } = this.state;
-    const isEditable = viewer && viewer.id === User.id;
-    const classes = `container ${isEditing ? 'container--editing' : undefined}`;
+    const { viewer, user, style, showResponse, post, postId, id } = this.props;
+    const { isEditing, isReplying } = this.state;
+    const isEditable = viewer && viewer.id === user.id;
+    const isParent = !!this.props.commentId;
+
+    let maybeReplyElements;
+    if (this.props.replies) {
+      maybeReplyElements = this.props.replies.map((r, index) => {
+        const isReplyEditable = viewer && viewer.id === r.user.id;
+        return (
+          <CommentPreviewReply
+            key={`{${r.id}-${index}}`}
+            username={r.user.username}
+            createdAt={r.createdAt}
+            viewer={viewer}
+            isEditable={isReplyEditable}
+            isEditing={isEditing}
+            onDelete={() => this._handleDelete(r.id)}
+            style={{ margin: '16px 0 16px 0' }}>
+            {r.content}
+          </CommentPreviewReply>
+        );
+      });
+    }
 
     return (
-      <div className={classes}>
+      <div className="container" style={style}>
         <style jsx>{`
           .container {
-            margin: 0 auto 48px auto;
-            padding: 16px;
-            border: 1px solid #ECECEC;
+            margin: 0 auto 0 auto;
             font-size: 14px;
             box-sizing: border-box;
             white-space: pre-wrap;
             overflow-wrap: break-word;
           }
 
-          .container--editing {
-            border: 2px solid blue;
-            box-shadow: 4px 4px 0 blue;
+          .content {
+            padding: 16px;
+            border-right: 1px solid #2e2f30;
+            border-left: 1px solid #2e2f30;
+            border-bottom: 1px solid #2e2f30;
           }
 
-          .item {
-            margin-right: 16px;
-            color: #0000FF;
-            cursor: pointer;
-            text-decoration: underline;
-            transition: color 200ms ease;
-
-            &:hover {
-              color: #1111AF;
-            }
+          .text {
+            margin-bottom: 48px;
           }
 
           .actions {
-            margin: 0 0 0 0;
+            margin: 24px 0 0 0;
             font-size: 12px;
-          }
-
-          .username {
-            font-size: 12px;
-            font-weight: 600;
-            margin: 48px 0 4px 0;
-          }
-
-          .date {
-            font-size: 12px;
-            margin-bottom: 8px;
           }
 
           .response {
             margin-bottom: 16px;
           }
 
-          .title {
+          .bold {
             font-weight: 600;
           }
         `}</style>
-        <div>
-          {this.props.showResponse
+        <CommentPreviewHeader
+          viewer={viewer}
+          onEdit={this._handleEdit}
+          onCancel={this._handleCancel}
+          onDelete={() => this._handleDelete(id)}
+          isEditable={isEditable}
+          isEditing={isEditing}
+          style={{ background: isEditing ? 'blue' : '#2e2f30' }}>
+          <span className="bold">{this.props.user.username}{' '}</span>
+          commented on
+          <span className="bold">
+            {' '}{Strings.toDate(this.props.createdAt)}
+          </span>
+        </CommentPreviewHeader>
+        <div className="content">
+          {showResponse
             ? <blockquote className="response" onClick={this._handleView}>
                 📮 In response to
                 {' '}
-                <span className="title">“{this.props.Post.title}”</span>
+                <span className="title">“{post.title}”</span>
               </blockquote>
             : undefined}
+
           {!isEditing
-            ? <p>
+            ? <p className="text">
                 {this.state.content}
               </p>
-            : undefined}
-          {isEditing
-            ? <Textarea
+            : <Textarea
+                autoFocus
                 value={this.state.content}
+                fontSize="14px"
                 onChange={this._handleContentChange}
+              />}
+
+          {maybeReplyElements}
+
+          {isReplying
+            ? <CommentForm
+                autoFocus
+                title={
+                  <span>
+                    Leave a reply to
+                    {' '}
+                    <span className="bold">{this.props.user.username}</span>
+                  </span>
+                }
+                placeholder="Leave a reply..."
+                isReplying={isReplying}
+                onCancel={this._handleCancelReply}
+                postId={postId}
+                commentId={id}
+                style={{ margin: '16px 0 0 0' }}
               />
             : undefined}
-          <div className="username">
-            {this.props.User.username}
-          </div>
-          <div className="date">
-            {Strings.toDate(this.props.createdAt)}
-          </div>
-          {isEditable
+
+          {viewer
             ? <div className="actions">
-                {!isEditing
-                  ? <span className="item" onClick={this._handleEdit}>
-                      Edit Comment
-                    </span>
+                {!isParent && !isReplying && !isEditing
+                  ? <ButtonText
+                      onClick={this._handleReply}
+                      style={{ margin: '0 16px 0 0' }}>
+                      Reply
+                    </ButtonText>
                   : undefined}
-                {isEditing
-                  ? <span className="item" onClick={this._handleSave}>
+                {isEditable && isEditing
+                  ? <ButtonText onClick={this._handleSave}>
                       Save
-                    </span>
+                    </ButtonText>
                   : undefined}
-                {isEditing
-                  ? <span className="item" onClick={this._handleCancel}>
-                      Cancel
-                    </span>
-                  : undefined}
-                <span className="item" onClick={this._handleDelete}>
-                  Delete
-                </span>
               </div>
             : undefined}
         </div>

@@ -1,14 +1,14 @@
 import React from 'react';
-import Input from './Input';
-import Button from './Button';
+import Input from '../components/Input';
+import Button from '../components/Button';
 import * as Actions from '../common/actions';
+import * as Strings from '../common/strings';
 import { connect } from 'react-redux';
 
-class SignupForm extends React.Component {
+class AuthLoginForm extends React.Component {
   state = {
     username: '',
     password: '',
-    verify: '',
   };
 
   _handleChange = e => {
@@ -16,7 +16,7 @@ class SignupForm extends React.Component {
   };
 
   _handleSubmit = e => {
-    this.props.dispatch(Actions.requestSignup(this.state));
+    this.props.dispatch(Actions.requestLogin(this.state));
   };
 
   render() {
@@ -30,6 +30,7 @@ class SignupForm extends React.Component {
             display: block;
             border: 0;
           }
+
           .large-spacer {
             height: 24px;
             margin: 0;
@@ -40,6 +41,7 @@ class SignupForm extends React.Component {
         `}</style>
         <Input
           label="Username"
+          autoFocus
           value={this.state.username}
           name="username"
           onChange={this._handleChange}
@@ -48,26 +50,18 @@ class SignupForm extends React.Component {
         <Input
           label="Password"
           value={this.state.password}
+          type="password"
           name="password"
-          type="password"
-          onChange={this._handleChange}
-        />
-        <hr className="spacer" />
-        <Input
-          label="Verify your password"
-          value={this.state.verify}
-          name="verify"
-          type="password"
           onChange={this._handleChange}
           onSubmit={this._handleSubmit}
         />
         <hr className="large-spacer" />
         <Button onClick={this._handleSubmit}>
-          Sign up
+          Log in
         </Button>
       </div>
     );
   }
 }
 
-export default connect(state => state)(SignupForm);
+export default connect(state => state)(AuthLoginForm);
