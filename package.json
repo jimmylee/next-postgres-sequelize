@@ -31,7 +31,7 @@
     "next-routes": "^1.0.40",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
-    "pg": "^6.4.2",
+    "pg": "^7.3.0",
     "pg-hstore": "^2.3.2",
     "postcss-cssnext": "^2.11.0",
     "prop-types": "^15.5.10",
@@ -40,7 +40,7 @@
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
-    "sequelize": "^3.30.4",
+    "sequelize": "^4.15.0",
     "styled-jsx-postcss": "^0.2.0"
   }
 }

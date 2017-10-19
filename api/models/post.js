@@ -10,25 +10,22 @@ module.exports = (Sequelize, DataTypes) => {
         type: DataTypes.TEXT,
         allowNull: true,
       },
-    },
-    {
-      classMethods: {
-        associate: models => {
-          Post.hasMany(models.Comment, {
-            foreignKey: 'postId',
-            as: 'comments',
-            onDelete: 'CASCADE',
-          });
-
-          Post.belongsTo(models.User, {
-            foreignKey: 'userId',
-            as: 'user',
-            onDelete: 'CASCADE',
-          });
-        },
-      },
     }
   );
+
+  Post.associate = models => {
+    Post.hasMany(models.Comment, {
+      foreignKey: 'postId',
+      as: 'comments',
+      onDelete: 'CASCADE',
+    });
+
+    Post.belongsTo(models.User, {
+      foreignKey: 'userId',
+      as: 'user',
+      onDelete: 'CASCADE',
+    });
+  };
 
   return Post;
 };
