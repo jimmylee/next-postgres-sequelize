@@ -26,7 +26,7 @@
     "has-flag": "^3.0.0",
     "isomorphic-fetch": "^2.2.1",
     "morgan": "^1.9.0",
-    "next": "7.0.0",
+    "next": "7.0.2",
     "now-env": "^3.1.0",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
