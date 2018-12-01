@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "babel-node index.js --presets @babel/preset-env",
-    "build": "NODE_ENV=production next build && npm install -g sequelize && npm run migrate",
+    "build": "NODE_ENV=production next build && npm run migrate",
     "migrate": "NODE_ENV=production sequelize db:migrate",
     "start": "NODE_ENV=production babel-node index.js --presets @babel/preset-env",
     "heroku-postbuild": "NODE_ENV=production npm run build"

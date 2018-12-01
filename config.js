@@ -22,6 +22,9 @@ module.exports = {
     port: process.env.PRODUCTION_PORT,
     dialect: 'postgres',
     operatorsAliases: Sequelize.Op,
+    dialectOptions: {
+      ssl: true,
+    },
   },
   session: {
     secret: process.env.PRODUCTION_SECRET || 'placeholdersecret',

@@ -1,10 +1,12 @@
 {
-  "env": {
-    "PRODUCTION_USERNAME": "@production-username",
-    "PRODUCTION_PASSWORD": "@production-password",
-    "PRODUCTION_DATABASE": "@production-database",
-    "PRODUCTION_HOST": "@production-host",
-    "PRODUCTION_PORT": "@production-port",
-    "PRODUCTION_SECRET": "@production-secret"
-  }
+	"version": 1,
+	"name": "next-postgres",
+	"env": {
+		"PRODUCTION_USERNAME": "@next-postgres-production-username",
+		"PRODUCTION_PASSWORD": "@next-postgres-production-password",
+		"PRODUCTION_DATABASE": "@next-postgres-production-database",
+		"PRODUCTION_HOST": "@next-postgres-production-host",
+		"PRODUCTION_PORT": "@next-postgres-production-port",
+		"PRODUCTION_SECRET": "@next-postgres-production-secret"
+	}
 }
