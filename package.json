@@ -13,7 +13,12 @@
     "heroku-postbuild": "NODE_ENV=production npm run build"
   },
   "dependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "7.0.0",
+    "@babel/node": "7.0.0",
+    "@babel/preset-env": "7.0.0",
     "amdefine": "^1.0.1",
+    "babel-plugin-module-resolver": "^3.0.0",
     "bcrypt": "^3.0.0",
     "body-parser": "^1.18.3",
     "compression": "^1.7.2",
@@ -41,10 +46,6 @@
     "redux-thunk": "^2.2.0",
     "sequelize": "^4.31.0",
     "sequelize-cli": "^4.0.0",
-    "webpack": "^4.19.0",
-    "@babel/core": "7.0.0",
-    "@babel/node": "7.0.0",
-    "@babel/preset-env": "7.0.0",
-    "babel-plugin-module-resolver": "^3.0.0"
+    "webpack": "4.23.1"
   }
 }
