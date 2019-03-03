@@ -2,6 +2,7 @@
   "name": "next-postgres",
   "version": "1.0.0",
   "main": "index.js",
+  "license": "MIT",
   "engines": {
     "node": "10.7.0"
   },
