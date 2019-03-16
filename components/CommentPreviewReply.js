@@ -4,9 +4,9 @@ import * as Strings from '../common/strings';
 
 import CommentPreviewHeader from '../components/CommentPreviewHeader';
 import LabelBold from '../components/LabelBold';
-import styled from 'react-emotion';
+import styled from '@emotion/styled';
 
-const CommentReplyContainer = styled('div')`
+const CommentReplyContainer = styled.div`
   border-left: 2px solid #ececec;
   padding-left: 24px;
 `;

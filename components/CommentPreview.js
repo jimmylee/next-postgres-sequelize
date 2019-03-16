@@ -12,9 +12,9 @@ import CommentPreviewReply from '../components/CommentPreviewReply';
 import CommentForm from '../components/CommentForm';
 
 import { connect } from 'react-redux';
-import styled, { css } from 'react-emotion';
+import styled from '@emotion/styled';
 
-const CommentReplyForm = styled('div')`
+const CommentReplyForm = styled.div`
   padding: 0 0 0 16px;
 `;
 
@@ -93,12 +93,12 @@ class CommentPreview extends React.Component {
       });
     }
 
-    const CommentPreviewContainer = css`
+    const CommentPreviewContainer = styled.div`
       margin: 0 0 48px 0;
     `;
 
     return (
-      <div className={CommentPreviewContainer} style={style}>
+      <CommentPreviewContainer style={style}>
         <CommentPreviewHeader
           viewer={viewer}
           onEdit={this._handleEdit}
@@ -169,7 +169,7 @@ class CommentPreview extends React.Component {
             undefined
           )}
         </div>
-      </div>
+      </CommentPreviewContainer>
     );
   }
 }

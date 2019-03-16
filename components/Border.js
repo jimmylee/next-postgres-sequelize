@@ -1,6 +1,6 @@
-import styled from 'react-emotion';
+import styled from '@emotion/styled';
 
-export default styled('hr')`
+export default styled.hr`
   border: 0;
   margin: 0;
   height: 1px;

@@ -5,9 +5,9 @@ import Link from '../components/Link';
 import NavLayout from '../components/NavLayout';
 
 import { connect } from 'react-redux';
-import { css } from 'react-emotion';
+import styled from '@emotion/styled';
 
-const linkStyles = css`
+const StyledLink = styled(Link)`
   display: inline-block;
   font-weight: 600;
   cursor: pointer;
@@ -28,18 +28,18 @@ class NavPublic extends React.Component {
   render() {
     return (
       <NavLayout>
-        <Link className={linkStyles} href="/" style={{ marginRight: '24px' }}>
+        <StyledLink href="/" style={{ marginRight: '24px' }}>
           Sign in
-        </Link>
-        <Link className={linkStyles} href="/posts" style={{ marginRight: '24px' }}>
+        </StyledLink>
+        <StyledLink href="/posts" style={{ marginRight: '24px' }}>
           Posts ({this.props.posts.length})
-        </Link>
-        <Link className={linkStyles} href="/comments" style={{ marginRight: '24px' }}>
+        </StyledLink>
+        <StyledLink href="/comments" style={{ marginRight: '24px' }}>
           Comments ({this.props.comments.length})
-        </Link>
-        <Link className={linkStyles} href="/users">
+        </StyledLink>
+        <StyledLink href="/users">
           Users ({this.props.users.length})
-        </Link>
+        </StyledLink>
       </NavLayout>
     );
   }

@@ -2,8 +2,6 @@ import * as React from 'react';
 
 import Link from 'next/link';
 
-import { css } from 'react-emotion';
-
 export default class CustomLink extends React.Component {
   render() {
     if (this.props.onClick) {

@@ -3,9 +3,9 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import Label from '../components/Label';
 
-import { css } from 'react-emotion';
+import styled from '@emotion/styled';
 
-const textareaStyles = css`
+const FormTextarea = styled.textarea`
   width: 100%;
   resize: none;
   outline: 0;
@@ -31,10 +31,9 @@ export default class Textarea extends React.Component {
 
   render() {
     return (
-      <textarea
+      <FormTextarea
         autoComplete="off"
         style={this.props.style}
-        className={textareaStyles}
         placeholder={this.props.placeholder}
         onChange={this.props.onChange}
         value={this.props.value}
