@@ -5,9 +5,9 @@ import Link from '../components/Link';
 import NavLayout from '../components/NavLayout';
 
 import { connect } from 'react-redux';
-import { css } from 'react-emotion';
+import styled from '@emotion/styled';
 
-const linkStyles = css`
+const StyledLink = styled(Link)`
   display: inline-block;
   font-weight: 600;
   cursor: pointer;
@@ -32,21 +32,21 @@ class Nav extends React.Component {
   render() {
     return (
       <NavLayout>
-        <Link className={linkStyles} href="/write" style={{ marginRight: '24px' }}>
+        <StyledLink href="/write" style={{ marginRight: '24px' }}>
           Write
-        </Link>
-        <Link className={linkStyles} href="/" style={{ marginRight: '24px' }}>
+        </StyledLink>
+        <StyledLink href="/" style={{ marginRight: '24px' }}>
           Posts ({this.props.posts.length})
-        </Link>
-        <Link className={linkStyles} href="/comments" style={{ marginRight: '24px' }}>
+        </StyledLink>
+        <StyledLink href="/comments" style={{ marginRight: '24px' }}>
           Comments ({this.props.comments.length})
-        </Link>
-        <Link className={linkStyles} href="/users" style={{ marginRight: '24px' }}>
+        </StyledLink>
+        <StyledLink href="/users" style={{ marginRight: '24px' }}>
           Users ({this.props.users.length})
-        </Link>
-        <Link className={linkStyles} onClick={this._handleLogout}>
+        </StyledLink>
+        <StyledLink onClick={this._handleLogout}>
           Log out
-        </Link>
+        </StyledLink>
       </NavLayout>
     );
   }

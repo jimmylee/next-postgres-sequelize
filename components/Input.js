@@ -1,13 +1,13 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import Label from '../components/Label';
-import { css } from 'react-emotion';
+import styled from '@emotion/styled';
 
-const baseStyles = css`
+const FormBase = styled.div`
   position: relative;
 `;
 
-const inputStyles = css`
+const FormInput = styled.input`
   width: 100%;
   outline: 0;
   border: 0;
@@ -57,12 +57,11 @@ export default class Input extends React.Component {
 
   render() {
     return (
-      <div className={baseStyles}>
+      <FormBase>
         {this.props.label ? <Label>{this.props.label}</Label> : undefined}
-        <input
+        <FormInput
           ref="input"
           autoComplete="off"
-          className={inputStyles}
           onChange={this.props.onChange}
           onKeyUp={this._handleKeyUp}
           placeholder={this.props.placeholder}
@@ -70,7 +69,7 @@ export default class Input extends React.Component {
           name={this.props.name}
           type={this.props.type}
         />
-      </div>
+      </FormBase>
     );
   }
 }

@@ -1,20 +1,20 @@
 import * as React from 'react';
 
-import styled from 'react-emotion';
+import styled from '@emotion/styled';
 
-const Header = styled('header')`
+const Header = styled.header`
   display: flex,
   align-items: center;
   justify-content: space-between;
   margin-bottom: 4px;
 `;
 
-const Left = styled('div')`
+const Left = styled.div`
   min-width: 25%;
   width: 100%;
 `;
 
-const Right = styled('div')`
+const Right = styled.div`
   flex-shrink: 0;
 `;
 

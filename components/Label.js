@@ -1,6 +1,6 @@
-import styled from 'react-emotion';
+import styled from '@emotion/styled';
 
-export default styled('label')`
+export default styled.label`
   position: absolute;
   top: 8px;
   left: 8px;

@@ -1,9 +1,9 @@
-import { css } from 'react-emotion';
+import styled from '@emotion/styled';
 
-const buttonStyle = css``;
+const Button = styled.button``;
 
 export default props => (
-  <button {...props} className={buttonStyle}>
+  <Button {...props}>
     {props.children}
-  </button>
+  </Button>
 );
