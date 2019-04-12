@@ -26,9 +26,10 @@ class Index extends React.Component {
       <ColumnLayout key="layout">
         <Text.PageTitle>next-postgres</Text.PageTitle>
         <Text.Paragraph>
-          This project is an example of React + NextJS + Postgres. It is tailored for those who are
-          enthusiastic about building websites with 100% JavaScript. It is designed in a way that
-          makes you want to change it and very easy to change. <br />
+          This project is an example of React + NextJS + Postgres. It is
+          tailored for those who are enthusiastic about building websites with
+          100% JavaScript. It is designed in a way that makes you want to change
+          it and very easy to change. <br />
           <br />
           <Text.Anchor
             target="blank"
@@ -46,7 +47,9 @@ class Index extends React.Component {
   };
 
   render() {
-    let subview = !this.props.isAuthenticated ? this.renderLoggedOut() : this.renderLoggedIn();
+    let subview = !this.props.isAuthenticated
+      ? this.renderLoggedOut()
+      : this.renderLoggedIn();
 
     return <Document>{subview}</Document>;
   }

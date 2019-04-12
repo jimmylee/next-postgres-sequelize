@@ -1,11 +1,11 @@
 import * as React from 'react';
 import * as Actions from '../common/actions';
 
+import { connect } from 'react-redux';
+
 import Input from '../components/Input';
 import Button from '../components/Button';
 import Border from '../components/Border';
-
-import { connect } from 'react-redux';
 
 class AuthSignupForm extends React.Component {
   state = {

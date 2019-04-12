@@ -1,11 +1,11 @@
 import * as React from 'react';
 import * as Actions from '../common/actions';
 
-import Link from '../components/Link';
-import NavLayout from '../components/NavLayout';
-
 import { connect } from 'react-redux';
 import styled from '@emotion/styled';
+
+import Link from '../components/Link';
+import NavLayout from '../components/NavLayout';
 
 const StyledLink = styled(Link)`
   display: inline-block;
@@ -44,9 +44,7 @@ class Nav extends React.Component {
         <StyledLink href="/users" style={{ marginRight: '24px' }}>
           Users ({this.props.users.length})
         </StyledLink>
-        <StyledLink onClick={this._handleLogout}>
-          Log out
-        </StyledLink>
+        <StyledLink onClick={this._handleLogout}>Log out</StyledLink>
       </NavLayout>
     );
   }

@@ -1,15 +1,10 @@
 import * as React from 'react';
 
-import PropTypes from 'prop-types';
-import CommentPreview from '../components/CommentPreview';
-
 import { connect } from 'react-redux';
 
-class CommentList extends React.Component {
-  static propTypes = {
-    showResponse: PropTypes.bool,
-  };
+import CommentPreview from '../components/CommentPreview';
 
+class CommentList extends React.Component {
   render() {
     const comments = this.props.comments.map(c => (
       <CommentPreview

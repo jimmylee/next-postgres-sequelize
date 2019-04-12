@@ -3,10 +3,10 @@ import * as Text from '../components/Text';
 import * as Actions from '../common/actions';
 import * as Strings from '../common/strings';
 
+import { connect } from 'react-redux';
+
 import Button from '../components/Button';
 import PostLockup from '../components/PostLockup';
-
-import { connect } from 'react-redux';
 
 export default class PostPreview extends React.Component {
   _handleViewPost = id => {

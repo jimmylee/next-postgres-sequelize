@@ -1,9 +1,10 @@
 import styled from '@emotion/styled';
+
 import Link from './Link';
 
 export const PostBody = styled.p`
-  font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica neue, helvetica,
-    ubuntu, roboto, noto, segoe ui, arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir,
+    helvetica neue, helvetica, ubuntu, roboto, noto, segoe ui, arial, sans-serif;
   font-size: 16px;
   line-height: 24px;
   font-weight: 400;
@@ -11,8 +12,8 @@ export const PostBody = styled.p`
 `;
 
 export const Heading1 = styled.h1`
-  font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica neue, helvetica,
-    ubuntu, roboto, noto, segoe ui, arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir,
+    helvetica neue, helvetica, ubuntu, roboto, noto, segoe ui, arial, sans-serif;
   font-size: 40px;
   line-height: 1.2;
   font-weight: 700;
@@ -49,10 +50,10 @@ export const PageTitle = styled.h1`
   margin-bottom: 24px;
 `;
 
-export const Anchor = props => {
-  const BasicLink = styled(Link)`
-    font-weight: 400;
-  `;
+const BasicLink = styled(Link)`
+  font-weight: 400;
+`;
 
+export const Anchor = props => {
   return <BasicLink {...props} />;
 };

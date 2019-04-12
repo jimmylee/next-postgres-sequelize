@@ -1,7 +1,8 @@
 import * as React from 'react';
-import PropTypes from 'prop-types';
-import Label from '../components/Label';
+
 import styled from '@emotion/styled';
+
+import Label from '../components/Label';
 
 const FormBase = styled.div`
   position: relative;
@@ -23,17 +24,6 @@ const FormInput = styled.input`
 `;
 
 export default class Input extends React.Component {
-  static propTypes = {
-    onChange: PropTypes.func,
-    onSubmit: PropTypes.func,
-    onKeyUp: PropTypes.func,
-    placeholder: PropTypes.string,
-    value: PropTypes.string,
-    label: PropTypes.string,
-    name: PropTypes.string,
-    type: PropTypes.string,
-  };
-
   static defaultProps = {
     onChange: () => {},
     onSubmit: () => {},

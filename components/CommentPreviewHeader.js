@@ -5,18 +5,32 @@ import BoxHeaderLayout from '../components/BoxHeaderLayout';
 
 export default class CommentPreviewHeader extends React.Component {
   render() {
-    const { viewer, isEditable, isEditing, style, onEdit, onCancel, onDelete } = this.props;
+    const {
+      viewer,
+      isEditable,
+      isEditing,
+      style,
+      onEdit,
+      onCancel,
+      onDelete,
+    } = this.props;
 
     const rightElements = [
       viewer && isEditable && !isEditing && onEdit ? (
-        <Button key="edit" onClick={this.props.onEdit} style={{ marginRight: 8 }}>
+        <Button
+          key="edit"
+          onClick={this.props.onEdit}
+          style={{ marginRight: 8 }}>
           Edit
         </Button>
       ) : (
         undefined
       ),
       viewer && isEditable && isEditing && onCancel ? (
-        <Button key="cancel" onClick={this.props.onCancel} style={{ marginRight: 8 }}>
+        <Button
+          key="cancel"
+          onClick={this.props.onCancel}
+          style={{ marginRight: 8 }}>
           Cancel
         </Button>
       ) : (

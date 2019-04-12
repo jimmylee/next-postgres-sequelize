@@ -1,19 +1,14 @@
 import * as React from 'react';
-import PropTypes from 'prop-types';
+import * as Actions from '../common/actions';
+import * as Text from '../components/Text';
+
+import { connect } from 'react-redux';
+
 import Border from '../components/Border';
 import Textarea from '../components/Textarea';
 import Button from '../components/Button';
-import * as Actions from '../common/actions';
-import * as Text from '../components/Text';
-import { connect } from 'react-redux';
 
 class CommentForm extends React.Component {
-  static defaultProps = {
-    postId: PropTypes.string,
-    commentId: PropTypes.string,
-    title: PropTypes.string,
-  };
-
   state = {
     content: '',
   };

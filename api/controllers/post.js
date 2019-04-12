@@ -73,27 +73,23 @@ module.exports = {
   },
 
   async delete(req, res) {
-    try {
-      const post = await Post.find({
-        where: {
-          id: req.params.postId,
-          userId: req.user.id,
-        },
+    const post = await Post.find({
+      where: {
+        id: req.params.postId,
+        userId: req.user.id,
+      },
+    });
+
+    if (!post) {
+      return res.status(404).send({
+        message: 'Post Not Found',
       });
-
-      if (!post) {
-        return res.status(404).send({
-          message: 'Post Not Found',
-        });
-      }
-
-      await post.destroy();
-
-      return res.status(200).send({
-        message: null,
-      });
-    } catch (err) {
-      return res.status(500).send(err);
     }
+
+    await post.destroy();
+
+    return res.status(200).send({
+      message: null,
+    });
   },
 };

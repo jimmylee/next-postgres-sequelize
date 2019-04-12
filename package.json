@@ -40,7 +40,6 @@
     "passport-local": "^1.0.0",
     "pg": "^7.9.0",
     "pg-hstore": "^2.3.2",
-    "prop-types": "^15.7.2",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "react-redux": "^6.0.1",

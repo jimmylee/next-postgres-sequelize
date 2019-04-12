@@ -3,6 +3,9 @@ import * as Text from '../components/Text';
 import * as Actions from '../common/actions';
 import * as Strings from '../common/strings';
 
+import { connect } from 'react-redux';
+import styled from '@emotion/styled';
+
 import Button from '../components/Button';
 import LabelBold from '../components/LabelBold';
 import BorderedItem from '../components/BorderedItem';
@@ -11,11 +14,12 @@ import CommentPreviewHeader from '../components/CommentPreviewHeader';
 import CommentPreviewReply from '../components/CommentPreviewReply';
 import CommentForm from '../components/CommentForm';
 
-import { connect } from 'react-redux';
-import styled from '@emotion/styled';
-
 const CommentReplyForm = styled.div`
   padding: 0 0 0 16px;
+`;
+
+const CommentPreviewContainer = styled.div`
+  margin: 0 0 48px 0;
 `;
 
 class CommentPreview extends React.Component {
@@ -93,10 +97,6 @@ class CommentPreview extends React.Component {
       });
     }
 
-    const CommentPreviewContainer = styled.div`
-      margin: 0 0 48px 0;
-    `;
-
     return (
       <CommentPreviewContainer style={style}>
         <CommentPreviewHeader
@@ -120,7 +120,9 @@ class CommentPreview extends React.Component {
           )}
 
           {!isEditing ? (
-            <Text.PostBody style={{ margin: '16px 0 16px 0' }}>{this.state.content}</Text.PostBody>
+            <Text.PostBody style={{ margin: '16px 0 16px 0' }}>
+              {this.state.content}
+            </Text.PostBody>
           ) : (
             <Textarea
               autoFocus
@@ -138,7 +140,8 @@ class CommentPreview extends React.Component {
                 autoFocus
                 title={
                   <span>
-                    Leave a reply to <LabelBold>{this.props.user.username}</LabelBold>
+                    Leave a reply to{' '}
+                    <LabelBold>{this.props.user.username}</LabelBold>
                   </span>
                 }
                 placeholder="Leave a reply..."

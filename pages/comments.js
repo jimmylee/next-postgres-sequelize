@@ -9,7 +9,11 @@ import withData from '../higher-order/withData';
 
 class Comments extends React.Component {
   render() {
-    let navigation = !this.props.isAuthenticated ? <NavPublic /> : <NavAuthenticated />;
+    let navigation = !this.props.isAuthenticated ? (
+      <NavPublic />
+    ) : (
+      <NavAuthenticated />
+    );
 
     return (
       <Document>

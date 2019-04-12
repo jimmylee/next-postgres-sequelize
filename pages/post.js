@@ -57,7 +57,11 @@ class Post extends React.Component {
   };
 
   render() {
-    const navigation = !this.props.isAuthenticated ? <NavPublic /> : <NavAuthenticated />;
+    const navigation = !this.props.isAuthenticated ? (
+      <NavPublic />
+    ) : (
+      <NavAuthenticated />
+    );
 
     const { post, viewer } = this.props;
     if (!post) {
@@ -75,10 +79,15 @@ class Post extends React.Component {
     const isEditable = viewer && viewer.id === post.user.id;
 
     const commentForm = this.props.isAuthenticated ? (
-      <CommentForm postId={post.id} title="Reply to this post" placeholder="Leave a comment..." />
+      <CommentForm
+        postId={post.id}
+        title="Reply to this post"
+        placeholder="Leave a comment..."
+      />
     ) : (
       <div style={{ padding: `16px 0 16px 0` }}>
-        To leave a comment, <Text.Anchor href="/">log in or create an account</Text.Anchor>.
+        To leave a comment,{' '}
+        <Text.Anchor href="/">log in or create an account</Text.Anchor>.
       </div>
     );
 
@@ -94,9 +103,21 @@ class Post extends React.Component {
         <ColumnLayout>
           {isEditable ? (
             <div>
-              {!isEditing ? <Button onClick={this._handleEdit}>Edit Post</Button> : undefined}
-              {isEditing ? <Button onClick={this._handleCancel}>Cancel</Button> : undefined}
-              {isEditing ? <Button onClick={this._handleSave}>Save</Button> : undefined}
+              {!isEditing ? (
+                <Button onClick={this._handleEdit}>Edit Post</Button>
+              ) : (
+                undefined
+              )}
+              {isEditing ? (
+                <Button onClick={this._handleCancel}>Cancel</Button>
+              ) : (
+                undefined
+              )}
+              {isEditing ? (
+                <Button onClick={this._handleSave}>Save</Button>
+              ) : (
+                undefined
+              )}
               <Button onClick={this._handleDelete}>Delete</Button>
             </div>
           ) : (
@@ -129,7 +150,9 @@ class Post extends React.Component {
             undefined
           )}
           {!isEditing ? (
-            <Text.PostBody style={{ margin: '16px 0 88px 0' }}>{this.state.content}</Text.PostBody>
+            <Text.PostBody style={{ margin: '16px 0 88px 0' }}>
+              {this.state.content}
+            </Text.PostBody>
           ) : (
             undefined
           )}

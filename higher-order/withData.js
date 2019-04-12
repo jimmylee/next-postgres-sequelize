@@ -45,8 +45,13 @@ const initializeReduxStore = (ctx, initialState) => {
   return window[storeKey];
 };
 
-const composeComponentWithData = (options, mapStateToProps) => ComposedComponent => {
-  const connectedComponent = connect.apply(null, [mapStateToProps])(ComposedComponent);
+const composeComponentWithData = (
+  options,
+  mapStateToProps
+) => ComposedComponent => {
+  const connectedComponent = connect.apply(null, [mapStateToProps])(
+    ComposedComponent
+  );
 
   return class WithDataHigherOrder extends React.Component {
     static async getInitialProps(ctx) {
@@ -71,7 +76,9 @@ const composeComponentWithData = (options, mapStateToProps) => ComposedComponent
       const { initialState, initialProps, store } = this.props;
 
       const hasStore = store && store.dispatch && store.getState;
-      const providerStore = hasStore ? this.props.store : initializeReduxStore({}, initialState);
+      const providerStore = hasStore
+        ? this.props.store
+        : initializeReduxStore({}, initialState);
 
       return (
         <Provider store={providerStore}>

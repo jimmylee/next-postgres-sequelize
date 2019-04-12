@@ -28,7 +28,11 @@ class Write extends React.Component {
   };
 
   render() {
-    const navigation = !this.props.isAuthenticated ? <NavPublic /> : <NavAuthenticated />;
+    const navigation = !this.props.isAuthenticated ? (
+      <NavPublic />
+    ) : (
+      <NavAuthenticated />
+    );
 
     return (
       <Document>

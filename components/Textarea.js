@@ -1,9 +1,8 @@
 import * as React from 'react';
 
-import PropTypes from 'prop-types';
-import Label from '../components/Label';
-
 import styled from '@emotion/styled';
+
+import Label from '../components/Label';
 
 const FormTextarea = styled.textarea`
   width: 100%;
@@ -19,16 +18,6 @@ const FormTextarea = styled.textarea`
 `;
 
 export default class Textarea extends React.Component {
-  static propTypes = {
-    autoFocus: PropTypes.bool,
-    onChange: PropTypes.func,
-    name: PropTypes.string,
-    value: PropTypes.string,
-    fontSize: PropTypes.string,
-    height: PropTypes.number,
-    fontWeight: PropTypes.number,
-  };
-
   render() {
     return (
       <FormTextarea
