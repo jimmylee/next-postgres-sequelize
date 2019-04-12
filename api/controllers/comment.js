@@ -31,21 +31,17 @@ module.exports = {
   },
 
   async get(req, res) {
-    try {
-      const comment = await Comment.find(
-        queries.comments.get({ req, User, Post, Comment })
-      );
+    const comment = await Comment.findOne(
+      queries.comments.get({ req, User, Post, Comment })
+    );
 
-      if (!comment) {
-        return res.status(404).send({
-          message: '404 comment',
-        });
-      }
-
-      return res.status(200).send(comment);
-    } catch (err) {
-      return res.status(500).send(err);
+    if (!comment) {
+      return res.status(404).send({
+        message: '404 comment',
+      });
     }
+
+    return res.status(200).send(comment);
   },
 
   async getAll(req, res) {
@@ -67,52 +63,46 @@ module.exports = {
   },
 
   async update(req, res) {
-    try {
-      const comment = await Comment.find({
-        where: {
-          id: req.params.commentId,
-          postId: req.params.postId,
-          userId: req.user.id,
-        },
+    const comment = await Comment.findOne({
+      where: {
+        id: req.params.commentId,
+        postId: req.params.postId,
+        userId: req.user.id,
+      },
+    });
+
+    if (!comment) {
+      return res.status(404).send({
+        message: '404 comment to update',
       });
-
-      if (!comment) {
-        return res.status(404).send({
-          message: '404 comment to update',
-        });
-      }
-
-      const updatedComment = await comment.update({
-        content: req.body.content || commment.content,
-      });
-
-      return res.status(200).send(updatedComment);
-    } catch (err) {
-      return res.status(500).send(err);
     }
+
+    const updatedComment = await comment.update({
+      content: req.body.content || commment.content,
+    });
+
+    return res.status(200).send(updatedComment);
   },
 
   async delete(req, res) {
-    try {
-      const comment = await Comment.find({
-        where: {
-          id: req.params.commentId,
-          postId: req.params.postId,
-          userId: req.user.id,
-        },
+    const comment = await Comment.findOne({
+      where: {
+        id: req.params.commentId,
+        postId: req.params.postId,
+        userId: req.user.id,
+      },
+    });
+
+    console.log(comment);
+
+    if (!comment) {
+      return res.status(404).send({
+        message: '404 comment to delete',
       });
-
-      if (!comment) {
-        return res.status(404).send({
-          message: '404 comment to delete',
-        });
-      }
-
-      await comment.destroy();
-
-      return res.status(200).send();
-    } catch (err) {
-      return res.status(500).send(err);
     }
+
+    await comment.destroy();
+
+    return res.status(200).send();
   },
 };

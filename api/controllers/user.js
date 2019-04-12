@@ -93,34 +93,26 @@ module.exports = {
   },
 
   async list(req, res) {
-    try {
-      const users = await User.findAll(
-        queries.users.list({ req, User, Post, Comment })
-      );
+    const users = await User.findAll(
+      queries.users.list({ req, User, Post, Comment })
+    );
 
-      return res.status(200).send(users);
-    } catch (err) {
-      return res.status(500).send(err);
-    }
+    return res.status(200).send(users);
   },
 
   async get(req, res) {
-    try {
-      const user = await User.findById(
-        req.params.userId,
-        queries.users.get({ req, User, Post, Comment })
-      );
+    const user = await User.findByPk(
+      req.params.userId,
+      queries.users.get({ req, User, Post, Comment })
+    );
 
-      if (!user) {
-        return res.status(404).send({
-          message: '404 on user get',
-        });
-      }
-
-      return res.status(200).send(getUserProps(user));
-    } catch (err) {
-      return res.status(500).send(err);
+    if (!user) {
+      return res.status(404).send({
+        message: '404 on user get',
+      });
     }
+
+    return res.status(200).send(getUserProps(user));
   },
 
   async update(req, res) {
@@ -130,45 +122,37 @@ module.exports = {
       });
     }
 
-    try {
-      const user = await User.findById(req.params.userId);
+    const user = await User.findByPk(req.params.userId);
 
-      if (!user) {
-        return res.status(404).send({
-          message: '404 no user on update',
-        });
-      }
-
-      const updatedUser = await user.update({
-        email: req.body.email || user.email,
-        username: req.body.username || user.username,
-        password: req.body.password || user.password,
+    if (!user) {
+      return res.status(404).send({
+        message: '404 no user on update',
       });
-
-      return res.status(200).send(getUserProps(updatedUser));
-    } catch (err) {
-      return res.status(500).send(err);
     }
+
+    const updatedUser = await user.update({
+      email: req.body.email || user.email,
+      username: req.body.username || user.username,
+      password: req.body.password || user.password,
+    });
+
+    return res.status(200).send(getUserProps(updatedUser));
   },
 
   async deleteViewer(req, res) {
-    try {
-      const user = await User.findById(req.user.id);
+    const user = await User.findByPk(req.user.id);
 
-      if (!user) {
-        return res.status(403).send({
-          message: 'Forbidden: User Not Found',
-        });
-      }
-
-      req.logout();
-      await user.destroy();
-
-      return res.status(200).send({
-        viewer: null,
+    if (!user) {
+      return res.status(403).send({
+        message: 'Forbidden: User Not Found',
       });
-    } catch (err) {
-      return res.status(500).send(err);
     }
+
+    req.logout();
+    await user.destroy();
+
+    return res.status(200).send({
+      viewer: null,
+    });
   },
 };

@@ -29,7 +29,7 @@ module.exports = {
 
   async get(req, res) {
     try {
-      const post = await Post.findById(
+      const post = await Post.findByPk(
         req.params.postId,
         queries.posts.get({ User, Post, Comment })
       );
@@ -47,33 +47,29 @@ module.exports = {
   },
 
   async update(req, res) {
-    try {
-      const post = await Post.find({
-        where: {
-          id: req.params.postId,
-          userId: req.user.id,
-        },
+    const post = await Post.findOne({
+      where: {
+        id: req.params.postId,
+        userId: req.user.id,
+      },
+    });
+
+    if (!post) {
+      return res.status(404).send({
+        message: '404 on post update',
       });
-
-      if (!post) {
-        return res.status(404).send({
-          message: '404 on post update',
-        });
-      }
-
-      const updatedPost = await post.update({
-        title: req.body.title || post.title,
-        content: req.body.content || post.content,
-      });
-
-      return res.status(200).send(updatedPost);
-    } catch (err) {
-      return res.status(500).send(err);
     }
+
+    const updatedPost = await post.update({
+      title: req.body.title || post.title,
+      content: req.body.content || post.content,
+    });
+
+    return res.status(200).send(updatedPost);
   },
 
   async delete(req, res) {
-    const post = await Post.find({
+    const post = await Post.findOne({
       where: {
         id: req.params.postId,
         userId: req.user.id,
