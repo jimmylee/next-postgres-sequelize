@@ -19,7 +19,12 @@ class Comments extends React.Component {
       <Document>
         {navigation}
         <ColumnLayout>
-          <CommentList showResponse comments={this.props.comments} />
+          <CommentList
+            showResponse
+            viewer={this.props.viewer}
+            comments={this.props.comments}
+            dispatch={this.props.dispatch}
+          />
         </ColumnLayout>
       </Document>
     );

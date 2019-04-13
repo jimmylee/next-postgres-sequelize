@@ -1,11 +1,9 @@
 import * as React from 'react';
 
-import { connect } from 'react-redux';
-
 import Textarea from '../components/Textarea';
 import Button from '../components/Button';
 
-class PostForm extends React.Component {
+export default class PostForm extends React.Component {
   render() {
     return (
       <div style={this.props.style}>
@@ -24,5 +22,3 @@ class PostForm extends React.Component {
     );
   }
 }
-
-export default connect(state => state)(PostForm);

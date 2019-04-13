@@ -2,13 +2,11 @@ import * as React from 'react';
 import * as Strings from '../common/strings';
 import * as Actions from '../common/actions';
 
-import { connect } from 'react-redux';
-
 import Button from '../components/Button';
 import BorderedItem from '../components/BorderedItem';
 import BoxHeaderLayout from '../components/BoxHeaderLayout';
 
-class UserPreview extends React.Component {
+export default class UserPreview extends React.Component {
   _handleDelete = () => {
     this.props.dispatch(Actions.viewerDelete());
   };
@@ -37,7 +35,3 @@ class UserPreview extends React.Component {
     );
   }
 }
-
-export default connect(state => {
-  return { viewer: state.viewer };
-})(UserPreview);

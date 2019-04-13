@@ -95,7 +95,14 @@ class Post extends React.Component {
       .filter(c => {
         return !c.commentId;
       })
-      .map(c => <CommentPreview key={`cmmt-${c.id}`} {...c} />);
+      .map(c => (
+        <CommentPreview
+          viewer={this.props.viewer}
+          key={`comment-${c.id}`}
+          dispatch={this.props.dispatch}
+          comment={c}
+        />
+      ));
 
     return (
       <Document>

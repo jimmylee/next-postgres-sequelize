@@ -8,6 +8,8 @@ export default class UserList extends React.Component {
       <UserPreview
         style={{ marginBottom: 16 }}
         key={`user-${user.id}`}
+        viewer={this.props.viewer}
+        dispatch={this.props.dispatch}
         user={user}
       />
     ));

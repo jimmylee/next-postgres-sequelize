@@ -18,7 +18,11 @@ class Users extends React.Component {
       <Document>
         {navigation}
         <ColumnLayout>
-          <UserList users={this.props.users} />
+          <UserList
+            users={this.props.users}
+            dispatch={this.props.dispatch}
+            viewer={this.props.viewer}
+          />
         </ColumnLayout>
       </Document>
     );

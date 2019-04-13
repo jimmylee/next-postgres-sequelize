@@ -10,6 +10,7 @@ const FormTextarea = styled.textarea`
   outline: 0;
   border: 1px solid #ececec;
   padding: 16px 8px 16px 8px;
+  font-size: 16px;
 
   &:focus {
     outline: 0;

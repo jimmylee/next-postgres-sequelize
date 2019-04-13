@@ -3,7 +3,6 @@ import * as Text from '../components/Text';
 import * as Actions from '../common/actions';
 import * as Strings from '../common/strings';
 
-import { connect } from 'react-redux';
 import styled from '@emotion/styled';
 
 import Button from '../components/Button';
@@ -14,23 +13,15 @@ import CommentPreviewHeader from '../components/CommentPreviewHeader';
 import CommentPreviewReply from '../components/CommentPreviewReply';
 import CommentForm from '../components/CommentForm';
 
-const CommentReplyForm = styled.div`
-  padding: 0 0 0 16px;
-`;
-
-const CommentPreviewContainer = styled.div`
-  margin: 0 0 48px 0;
-`;
-
-class CommentPreview extends React.Component {
+export default class CommentPreview extends React.Component {
   state = {
     isEditing: false,
     isReplying: false,
-    content: this.props.content,
+    content: this.props.comment.content,
   };
 
   _handleView = () => {
-    window.location.href = `/post/${this.props.postId}`;
+    window.location.href = `/post/${this.props.comment.postId}`;
   };
 
   _handleReply = () => {
@@ -46,7 +37,7 @@ class CommentPreview extends React.Component {
   };
 
   _handleCancel = () => {
-    this.setState({ isEditing: false, content: this.props.content });
+    this.setState({ isEditing: false, content: this.props.comment.content });
   };
 
   _handleContentChange = e => {
@@ -56,9 +47,9 @@ class CommentPreview extends React.Component {
   _handleSave = () => {
     this.props.dispatch(
       Actions.requestUpdateComment({
-        postId: this.props.postId,
+        postId: this.props.comment.postId,
         content: this.state.content,
-        commentId: this.props.id,
+        commentId: this.props.comment.id,
       })
     );
   };
@@ -66,27 +57,28 @@ class CommentPreview extends React.Component {
   _handleDelete = commentId => {
     this.props.dispatch(
       Actions.requestDeleteComment({
-        postId: this.props.postId,
+        postId: this.props.comment.postId,
         commentId,
       })
     );
   };
 
   render() {
-    const { viewer, user, style, showResponse, post, postId, id } = this.props;
+    const { comment, viewer, style, showResponse } = this.props;
     const { isEditing, isReplying } = this.state;
-    const isEditable = viewer && viewer.id === user.id;
-    const isParent = !!this.props.commentId;
+    const isEditable = viewer && viewer.id === comment.user.id;
+    const isParent = !!this.props.comment.commentId;
 
     let maybeReplyElements;
-    if (this.props.replies) {
-      maybeReplyElements = this.props.replies.map((r, index) => {
+    if (comment.replies) {
+      maybeReplyElements = comment.replies.map((r, index) => {
         const isReplyEditable = viewer && viewer.id === r.user.id;
         return (
           <CommentPreviewReply
             key={`{${r.id}-${index}}`}
             username={r.user.username}
             createdAt={r.createdAt}
+            updatedAt={r.updatedAt}
             viewer={viewer}
             isEditable={isReplyEditable}
             isEditing={isEditing}
@@ -98,22 +90,22 @@ class CommentPreview extends React.Component {
     }
 
     return (
-      <CommentPreviewContainer style={style}>
+      <div style={{ marginBottom: 48, ...style }}>
         <CommentPreviewHeader
           viewer={viewer}
           onEdit={this._handleEdit}
           onCancel={this._handleCancel}
-          onDelete={() => this._handleDelete(id)}
+          onDelete={() => this._handleDelete(comment.id)}
           isEditable={isEditable}
           isEditing={isEditing}>
-          <LabelBold>{this.props.user.username} </LabelBold>
+          <LabelBold>{comment.user.username} </LabelBold>
           commented on
-          <LabelBold> {Strings.toDate(this.props.createdAt)}</LabelBold>
+          <LabelBold> {Strings.toDate(comment.createdAt)}</LabelBold>
         </CommentPreviewHeader>
-        <div className="content">
+        <div>
           {showResponse ? (
             <BorderedItem onClick={this._handleView}>
-              In response to <LabelBold>“{post.title}”</LabelBold>
+              In response to <LabelBold>“{comment.post.title}”</LabelBold>
             </BorderedItem>
           ) : (
             undefined
@@ -135,22 +127,22 @@ class CommentPreview extends React.Component {
           {maybeReplyElements}
 
           {isReplying ? (
-            <CommentReplyForm>
+            <div style={{ marginLeft: 16 }}>
               <CommentForm
                 autoFocus
                 title={
                   <span>
                     Leave a reply to{' '}
-                    <LabelBold>{this.props.user.username}</LabelBold>
+                    <LabelBold>{comment.user.username}</LabelBold>
                   </span>
                 }
                 placeholder="Leave a reply..."
                 isReplying={isReplying}
                 onCancel={this._handleCancelReply}
-                postId={postId}
-                commentId={id}
+                postId={comment.postId}
+                commentId={comment.id}
               />
-            </CommentReplyForm>
+            </div>
           ) : (
             undefined
           )}
@@ -172,11 +164,7 @@ class CommentPreview extends React.Component {
             undefined
           )}
         </div>
-      </CommentPreviewContainer>
+      </div>
     );
   }
 }
-
-export default connect(state => {
-  return { viewer: state.viewer };
-})(CommentPreview);
