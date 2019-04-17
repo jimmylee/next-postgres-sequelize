@@ -7,17 +7,18 @@
     "node": "^10.7.0"
   },
   "scripts": {
-    "dev": "babel-node index.js --presets @babel/preset-env",
+    "dev": "node index.js",
     "build": "NODE_ENV=production next build && npm run migrate",
     "migrate": "NODE_ENV=production sequelize db:migrate",
-    "start": "NODE_ENV=production babel-node index.js --presets @babel/preset-env",
+    "start": "NODE_ENV=production node index.js",
     "heroku-postbuild": "NODE_ENV=production npm run build"
   },
   "dependencies": {
     "@babel/cli": "^7.2.3",
-    "@babel/core": "^7.3.4",
-    "@babel/node": "^7.2.2",
-    "@babel/preset-env": "^7.3.4",
+    "@babel/register": "^7.4.0",
+    "@babel/core": "7.4.0",
+    "@babel/node": "7.2.2",
+    "@babel/preset-env": "7.4.2",
     "@emotion/core": "^10.0.9",
     "@emotion/styled": "^10.0.9",
     "amdefine": "^1.0.1",
