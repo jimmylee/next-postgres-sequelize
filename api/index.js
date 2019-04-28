@@ -1,7 +1,6 @@
 import user from './controllers/user';
 import post from './controllers/post';
 import comment from './controllers/comment';
-import passport from 'passport';
 
 const authMiddleware = (req, res, next) => {
   if (req.isAuthenticated()) {

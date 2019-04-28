@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as Strings from '../common/strings';
-import * as Text from '../components/Text';
 
 import BorderedItem from '../components/BorderedItem';
 

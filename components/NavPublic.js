@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as Actions from '../common/actions';
 
 import { connect } from 'react-redux';
 import styled from '@emotion/styled';

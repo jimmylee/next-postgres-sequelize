@@ -1,12 +1,10 @@
 import * as React from 'react';
 import * as Actions from '../common/actions';
-import * as Strings from '../common/strings';
 
 import { connect } from 'react-redux';
 
 import Input from '../components/Input';
 import Button from '../components/Button';
-import Border from '../components/Border';
 
 class AuthLoginForm extends React.Component {
   state = {

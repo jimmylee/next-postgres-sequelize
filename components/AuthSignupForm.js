@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 
 import Input from '../components/Input';
 import Button from '../components/Button';
-import Border from '../components/Border';
 
 class AuthSignupForm extends React.Component {
   state = {

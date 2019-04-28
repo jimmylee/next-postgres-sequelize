@@ -1,9 +1,7 @@
-import fs from 'fs';
 import path from 'path';
 import sequelize from 'sequelize';
 
 const db = {};
-const basename = path.basename(module.filename);
 const env = process.env.NODE_ENV || 'development';
 const sequelizeConfig = require(`${__dirname}/../../config.js`)[env];
 

@@ -9,7 +9,6 @@ export default class CommentPreviewHeader extends React.Component {
       viewer,
       isEditable,
       isEditing,
-      style,
       onEdit,
       onCancel,
       onDelete,

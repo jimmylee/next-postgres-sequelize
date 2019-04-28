@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as Text from '../components/Text';
-import * as Actions from '../common/actions';
 import * as Strings from '../common/strings';
 
 import Button from '../components/Button';
