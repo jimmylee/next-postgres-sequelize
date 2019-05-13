@@ -4,7 +4,6 @@ import * as Text from '../components/Text';
 
 import { connect } from 'react-redux';
 
-import Border from '../components/Border';
 import Textarea from '../components/Textarea';
 import Button from '../components/Button';
 

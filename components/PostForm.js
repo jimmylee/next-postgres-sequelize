@@ -1,7 +1,6 @@
 import * as React from 'react';
 
 import Textarea from '../components/Textarea';
-import Button from '../components/Button';
 
 export default class PostForm extends React.Component {
   render() {

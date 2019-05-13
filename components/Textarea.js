@@ -2,8 +2,6 @@ import * as React from 'react';
 
 import styled from '@emotion/styled';
 
-import Label from '../components/Label';
-
 const FormTextarea = styled.textarea`
   width: 100%;
   resize: none;

@@ -3,8 +3,6 @@ import * as Text from '../components/Text';
 import * as Actions from '../common/actions';
 import * as Strings from '../common/strings';
 
-import styled from '@emotion/styled';
-
 import Button from '../components/Button';
 import LabelBold from '../components/LabelBold';
 import BorderedItem from '../components/BorderedItem';
