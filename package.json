@@ -8,11 +8,11 @@
   },
   "scripts": {
     "dev": "node index.js",
-    "build": "NODE_ENV=production next build && npm run migrate",
-    "migrate": "NODE_ENV=production sequelize db:migrate",
-    "start": "NODE_ENV=production node index.js",
+    "build": "NODE_ENV=production next build",
+    "migrate": "NODE_ENV=production node_modules/.bin/sequelize db:migrate",
+    "start": "NODE_ENV=production npm run migrate && node index.js",
     "deploy": "gcloud app deploy",
-    "gcp-build": "npm run build",
+    "gcp-build": "NODE_ENV=production npm run build",
     "heroku-postbuild": "NODE_ENV=production npm run build"
   },
   "dependencies": {
