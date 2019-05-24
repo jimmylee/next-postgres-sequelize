@@ -1,5 +1,5 @@
 app.yaml
-
+yarn.lock
 .next
 .vscode
 .package-lock.json
