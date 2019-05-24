@@ -6,19 +6,24 @@ This is an example of a full stack web application with...
 - comments
 - server side rendering.
 
-It is configured to be deployed to [Zeit](https://zeit.co) but I also provide Heroku [deployment steps](https://github.com/jimmylee/next-postgres/blob/master/HEROKU.md).
+And you can deploy it to...
 
-It is code you can use without attribution, please enjoy. 🙏
+- [Google App Engine](https://cloud.google.com/appengine/)
+- [Heroku](https://github.com/jimmylee/next-postgres/blob/master/HEROKU.md)
+
+Feel free to use without attribution.
 
 #### Production Examples:
 
-- [Maurice Kenji Clarke](https://twitter.com/mauricekenji) used the setup to create: [https://indvstry.io/](https://indvstry.io/)
-- I used some of the ideas here for a serious project: [Reading Supply](https://reading.supply)
+- [Maurice Kenji Clarke](https://twitter.com/mauricekenji) used the setup to
+  create: [https://indvstry.io/](https://indvstry.io/)
+- I used some of the ideas here for a serious project:
+  [Reading Supply](https://reading.supply)
 
 #### Preview:
 
 - [https://next-postgres.herokuapp.com/](https://next-postgres.herokuapp.com/)
-- [https://next-postgres-wvpphfoelq.now.sh/](https://next-postgres-wvpphfoelq.now.sh/posts)
+- [https://next-postgres.appspot.com/](https://next-postgres.appspot.com/)
 
 ### Stack
 
@@ -32,18 +37,19 @@ It is code you can use without attribution, please enjoy. 🙏
 
 ### Why is this useful? Why should I care?
 
-- The UX and UI are garbage, that means everything you do after will be better!
-- Client and server are written in JavaScript.
-- This is a production ready codebase you can use to test a concept you have.
-- [Server side rendering](https://zeit.co/blog/next2) has been made simple.
-- Maybe you want to get a head start at a hackathon.
+- A nice starting point with bad UX/UI so you can change things freely.
+- Some "production ready" are concepts baked in for you.
+- You'll get server side rendering for free.
+- You can move faster at a hackthon.
 
 ## Setup: Prerequisites
 
-I use [Homebrew](https://brew.sh/) to manage dependencies on a new laptop... You're welcome to use something else.
+I use [Homebrew](https://brew.sh/) to manage dependencies on a new laptop...
+You're welcome to use something else.
 
 - Install Postgres: `brew install postgres`.
-- Install [Node 10.7.0+](https://nodejs.org/en/): `brew install node`. (Or update your node)
+- Install [Node 10.7.0+](https://nodejs.org/en/): `brew install node`. (Or
+  update your node)
 
 ## Setup: Quick newbies guide to Postgres
 
@@ -92,7 +98,8 @@ GRANT ALL PRIVILEGES ON DATABASE sampledb TO yourname;
 \q
 ```
 
-I also use a GUI called [TablePlus](https://tableplus.io/) if you don't like command line.
+I also use a GUI called [TablePlus](https://tableplus.io/) if you don't like
+command line.
 
 ## Setup: Run locally
 
@@ -106,45 +113,46 @@ sequelize db:migrate
 npm run dev
 ```
 
-Visit `localhost:8000` in a browser to start development locally. You will need postgres running.
+Visit `localhost:8000` in a browser to start development locally. You will need
+postgres running.
 
-## Deploy Heroku (Alternative choice)
+## Deploy Heroku
 
-To deploy with Heroku, please follow the instructions [here](https://github.com/jimmylee/next-postgres/blob/master/HEROKU.md).
+To deploy with Heroku, please follow the instructions
+[here](https://github.com/jimmylee/next-postgres/blob/master/HEROKU.md).
 
 There are very specific details you must pay attention to.
 
-## Deploy Zeit
+## Deploy Google App Engine
 
-Deploying with `now-cli` is as simple as
+Please set up [Google App Engine](https://cloud.google.com/appengine/) and
+download the `Google Cloud SDK` so you can use `gcloud` from the command line.
 
-```sh
-now
+You will need to add an `app.yaml`. It will look something like this:
+
+```
+runtime: nodejs
+env: flex
+
+env_variables:
+  NODE_ENV: production
+  PRODUCTION_USERNAME: your-database-username
+  PRODUCTION_PASSWORD: your-database-user-password
+  PRODUCTION_DATABASE: your-database-name
+  PRODUCTION_HOST: your-database-host
+  PRODUCTION_PORT: your-database-port
+  PRODUCTION_SECRET: your-secret
 ```
 
-Do you have a custom domain? You can use an `alias`
+Make sure you add `app.yaml` to the `.gitignore`. You don't want to commit this
+file into your project.
 
-```sh
-# after the deploy, alias to your domain, add "alias" to now.json first
-now alias
-```
+Then run `npm run deploy`.
 
-Make sure you configure your alias for [zeit.world](https://zeit.world). Also make sure you add the secrets you need or delete the ones you aren't using from `now-secrets.json`.
+## What happened to Zeit's Now service?
 
-## Database + Secrets
-
-You can use a service like [https://compose.io](https://compose.io) to get a hosted Postgres database.
-
-Then update production secrets using `now secrets`. You must do this or else your website can't connect to the production database.
-
-```sh
-now secrets add production-username   xxxxxxxxxxxxxxx
-now secrets add production-password   xxxxxxxxxxxxxxx
-now secrets add production-database   xxxxxxxxxxxxxxx
-now secrets add production-host       xxxxxxxxxxxxxxx
-now secrets add production-port       xxxxxxxxxxxxxxx
-now secrets add production-secret     xxxxxxxxxxxxxxx
-```
+Now 2.0 is about serverless everything. And this example doesn't work with Now
+2.0
 
 ## Questions?
 
