@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "engines": {
-    "node": "10.7.0"
+    "node": "10.X.X"
   },
   "scripts": {
     "dev": "node index.js",
