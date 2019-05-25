@@ -11,7 +11,7 @@
     "build": "NODE_ENV=production next build",
     "migrate": "NODE_ENV=production node_modules/.bin/sequelize db:migrate",
     "start": "NODE_ENV=production npm run migrate && node index.js",
-    "deploy": "gcloud app deploy",
+    "deploy": "gcloud app deploy --version v1",
     "gcp-build": "NODE_ENV=production npm run build",
     "heroku-postbuild": "NODE_ENV=production npm run build"
   },
