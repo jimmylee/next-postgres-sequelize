@@ -10,6 +10,7 @@ import cookieParser from 'cookie-parser';
 import passport from 'passport';
 import setupAuth from './api/auth';
 import setupApi from './api';
+import enforceSSL from './common/enforce-ssl';
 
 import queries from './api/controllers/queries';
 import { User, Comment, Post } from './api/models';
@@ -26,6 +27,7 @@ app.prepare().then(() => {
     server.use(compression());
   }
 
+  server.use(enforceSSL());
   server.use('/static', express.static(__dirname + '/static'));
   server.use(cookieParser());
   server.use(morgan('dev'));
