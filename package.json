@@ -1,6 +1,6 @@
 {
   "name": "next-postgres",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "index.js",
   "license": "MIT",
   "engines": {
@@ -11,7 +11,7 @@
     "build": "NODE_ENV=production next build",
     "migrate": "NODE_ENV=production node_modules/.bin/sequelize db:migrate",
     "start": "NODE_ENV=production npm run migrate && node index.js",
-    "deploy": "gcloud app deploy --version v1",
+    "deploy": "gcloud app deploy --version 1-0-2",
     "gcp-build": "NODE_ENV=production npm run build",
     "heroku-postbuild": "NODE_ENV=production npm run build"
   },

@@ -134,6 +134,18 @@ You will need to add an `app.yaml`. It will look something like this:
 runtime: nodejs
 env: flex
 
+automatic_scaling:
+  min_idle_instances: 0
+  max_num_instances: 1
+
+health_check:
+ enable_health_check: False
+
+resources:
+  cpu: 1
+  memory_gb: 0.5
+  disk_size_gb: 10
+
 env_variables:
   NODE_ENV: production
   PRODUCTION_USERNAME: your-database-username
@@ -147,7 +159,7 @@ env_variables:
 Make sure you add `app.yaml` to the `.gitignore`. You don't want to commit this
 file into your project.
 
-Then run `npm run deploy`.
+Then run `npm run deploy`. This configuration will cost you ~\$40 a month.
 
 ## What happened to Zeit's Now service?
 
