@@ -134,12 +134,8 @@ You will need to add an `app.yaml`. It will look something like this:
 runtime: nodejs
 env: flex
 
-automatic_scaling:
-  min_idle_instances: 0
-  max_num_instances: 1
-
-health_check:
- enable_health_check: False
+manual_scaling:
+  instances: 1
 
 resources:
   cpu: 1
@@ -155,6 +151,9 @@ env_variables:
   PRODUCTION_PORT: your-database-port
   PRODUCTION_SECRET: your-secret
 ```
+
+Be sure to read the
+[documentation](https://cloud.google.com/appengine/docs/flexible/custom-runtimes/configuring-your-app-with-app-yaml)
 
 Make sure you add `app.yaml` to the `.gitignore`. You don't want to commit this
 file into your project.
