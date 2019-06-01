@@ -1,24 +1,30 @@
 # next-postgres
 
-This is an example of a full stack web application with...
+An example app with...
 
-- posts
-- comments
-- server side rendering.
+- Posts
+- Comments
+- Authentication
+
+With some nice qualities...
+
+- Full stack JavaScript
+- Server side rendering
 
 And you can deploy it to...
 
 - [Google App Engine](https://cloud.google.com/appengine/)
 - [Heroku](https://github.com/jimmylee/next-postgres/blob/master/HEROKU.md)
 
-Feel free to use without attribution.
+Feel free to use without attribution!
 
 #### Production Examples:
 
 - [Maurice Kenji Clarke](https://twitter.com/mauricekenji) used the setup to
   create: [https://indvstry.io/](https://indvstry.io/)
-- I used some of the ideas here for a serious project:
-  [Reading Supply](https://reading.supply)
+- [Parker Ruhstaller](https://github.com/pruhstal) used the setup to create:
+  [https://leafist.com/](https://leafist.com/)
+- Maybe you?
 
 #### Preview:
 
@@ -37,15 +43,14 @@ Feel free to use without attribution.
 
 ### Why is this useful? Why should I care?
 
-- A nice starting point with bad UX/UI so you can change things freely.
+- Bad UX/UI so you are forced to make it your own!
 - Some "production ready" are concepts baked in for you.
 - You'll get server side rendering for free.
-- You can move faster at a hackthon.
+- You can move a little faster at a competition or hackathon.
 
 ## Setup: Prerequisites
 
-I use [Homebrew](https://brew.sh/) to manage dependencies on a new laptop...
-You're welcome to use something else.
+I use [Homebrew](https://brew.sh/) to manage dependencies.
 
 - Install Postgres: `brew install postgres`.
 - Install [Node 10.7.0+](https://nodejs.org/en/): `brew install node`. (Or
@@ -61,7 +66,9 @@ postgres -D /usr/local/var/postgres -p 5432
 
 - Postgres config is stored in `./config.js`.
 - Local database: `sampledb`.
-- Username and password as `test`.
+- Username: `test`.
+- Password: `test`.
+- Please come up with something better in production.
 
 ### First time Postgres instructions.
 
@@ -98,8 +105,7 @@ GRANT ALL PRIVILEGES ON DATABASE sampledb TO yourname;
 \q
 ```
 
-I also use a GUI called [TablePlus](https://tableplus.io/) if you don't like
-command line.
+Newbie tip: I use an app called [TablePlus](https://tableplus.io/) for postgres.
 
 ## Setup: Run locally
 
@@ -113,15 +119,13 @@ sequelize db:migrate
 npm run dev
 ```
 
-Visit `localhost:8000` in a browser to start development locally. You will need
-postgres running.
+- Visit `localhost:8000` in a browser to start development locally.
+- You will need postgres running.
 
 ## Deploy Heroku
 
 To deploy with Heroku, please follow the instructions
 [here](https://github.com/jimmylee/next-postgres/blob/master/HEROKU.md).
-
-There are very specific details you must pay attention to.
 
 ## Deploy Google App Engine
 
@@ -130,7 +134,7 @@ download the `Google Cloud SDK` so you can use `gcloud` from the command line.
 
 You will need to add an `app.yaml`. It will look something like this:
 
-```
+```yaml
 runtime: nodejs
 env: flex
 
@@ -156,14 +160,15 @@ Be sure to read the
 [documentation](https://cloud.google.com/appengine/docs/flexible/custom-runtimes/configuring-your-app-with-app-yaml)
 
 Make sure you add `app.yaml` to the `.gitignore`. You don't want to commit this
-file into your project.
+file into your Github repository.
 
 Then run `npm run deploy`. This configuration will cost you ~\$40 a month.
 
 ## What happened to Zeit's Now service?
 
-Now 2.0 is about serverless everything. And this example doesn't work with Now
-2.0
+- It is a great service.
+- Now 2.0 is about serverless everything
+- This example doesn't work with Now 2.0
 
 ## Questions?
 
