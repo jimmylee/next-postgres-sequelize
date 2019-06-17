@@ -29,7 +29,7 @@ Feel free to use without attribution!
 #### Preview:
 
 - [https://next-postgres.herokuapp.com/](https://next-postgres.herokuapp.com/)
-- [https://next-postgres.appspot.com/](https://next-postgres.appspot.com/)
+- ~[https://next-postgres.appspot.com/](https://next-postgres.appspot.com/)~ (disabled because of flexible instance cost)
 
 ### Stack
 
