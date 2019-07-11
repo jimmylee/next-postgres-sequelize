@@ -24,6 +24,8 @@ Feel free to use without attribution!
   create: [https://indvstry.io/](https://indvstry.io/)
 - [Parker Ruhstaller](https://github.com/pruhstal) used the setup to create:
   [https://leafist.com/](https://leafist.com/)
+- [Jay Graber](https://twitter.com/arcalinea) used the setup to create: [https://happening.net](https://happening.net)
+- [Rich C Smith](https://twitter.com/richcsmith) is working on something wicked cool.
 - Maybe you?
 
 #### Preview:
