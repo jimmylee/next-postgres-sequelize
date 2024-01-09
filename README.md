@@ -1,3 +1,7 @@
+## DEPRECATION NOTICE
+
+This template is no longer up to date. For an updated template, either as a team or individually, we encourage you to explore our [latest template](https://github.com/internet-development/nextjs-sass-starter) produced by [INTDEV](https://internet.dev). Thank you for your interest in our work! 
+
 # next-postgres
 
 > **January 4th, 2022** ➝ _I recommend you use [www-react-postgres](https://github.com/jimmylee/www-react-postgres) instead because it does not have an `express` server or a need for `babel`, therefore the template has less dependencies. That means there will be less attention cost required._
